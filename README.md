@@ -14,12 +14,14 @@ Clone the repo
 npm install cordova
 ```
 
-``` unix
+```unix
 cd Davis
 ```
 
+To build for a browser
+
 ```npm
-cordova build
+cordova build browser
 ```
 
 ## Usage

@@ -12,6 +12,10 @@ $userChat: #cdd5de;
    background-color: $menuBackground;
 }
 
+body {
+   background-color: $menuBackground;
+}
+
 .chat {
    background-color: $chatBackground;
    height: calc(100vh - 118px);
@@ -180,5 +184,60 @@ $userChat: #cdd5de;
       outline: none;
       border: none;
       box-shadow: none;
+   }
+}
+
+//Desktop
+@media (min-width: 900px) {
+   .desktop-only {
+      float: left;
+      display: block;
+      width: 35%;
+      padding: 0;
+      margin: 0;
+
+      embed {
+         height: 100vh;
+         width: 100%;
+      }
+   }
+   .mobile-only {
+      float: left;
+      width: 65%;
+      padding: 0;
+      margin: 0;
+   }
+}
+
+//Tablets
+@media (min-width: 671px) {
+   .desktop-only {
+      float: left;
+      display: block;
+      width: 35%;
+      padding: 0;
+      margin: 0;
+
+      embed {
+         height: 100vh;
+         width: 100%;
+      }
+   }
+   .mobile-only {
+      float: left;
+      width: 65%;
+      padding: 0;
+      margin: 0;
+   }
+}
+
+//Mobile devices
+@media (max-width: 670px) {
+   .desktop-only {
+      display: none;
+   }
+   .mobile-only {
+      margin: 0;
+      padding: 0;
    }
 }
