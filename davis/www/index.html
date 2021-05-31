@@ -18,9 +18,9 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!--
+   <head>
+      <meta charset="utf-8" />
+      <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
             https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
         Some notes:
@@ -29,23 +29,136 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+      <meta
+         http-equiv="Content-Security-Policy"
+         content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
+      />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="msapplication-tap-highlight" content="no" />
+      <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+      <meta name="color-scheme" content="light dark" />
+      <title>Davis | Chat</title>
+      <link rel="stylesheet" href="css/bootstrap.min.css" />
+      <link rel="stylesheet" href="css/chat.css" />
+   </head>
+   <body>
+      <nav class="navbar navbar-expand-lg navbar-dark nav-colour">
+         <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1"><-</span>
+            <span class="navbar-brand mb-0 h1">ContactName</span>
+            <div class="dropdown">
+               <button
+                  class="btn btn-secondary transparent"
+                  type="button"
+                  id="dropdownMenuButton2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+               >
+                  <img class="icon dropdown-icon" src="images/menu.svg" alt="Send" />
+               </button>
+               <ul
+                  class="dropdown-menu dropdown-menu-dark dropdown-menu-right"
+                  aria-labelledby="dropdownMenuButton2"
+               >
+                  <li><a class="dropdown-item" href="#">View contact info</a></li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li><a class="dropdown-item" href="#">Send location</a></li>
+                  <li><a class="dropdown-item" href="#">Send SOS</a></li>
+               </ul>
             </div>
-        </div>
-        <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
-    </body>
+         </div>
+      </nav>
+      <div class="error-field" id="error-field"></div>
+      <div class="chat container-fluid" id="chat">
+         
+         <div class="error" id="error-box">
+            <span class="close-button" id="error-close">&#10005</span>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-left-first">Hi</div>
+               </div>
+            </div>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-left">How are you doing?</div>
+                  <div class="message-time-left">11:32am</div>
+               </div>
+            </div>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-right-first float-end">I'm good :)</div>
+               </div>
+            </div>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-right float-end">How about you?</div>
+                  <div class="message-time-right float-end">11:49am</div>
+               </div>
+            </div>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-left-first">
+                     Long message example. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                     Quis, veniam non. Deserunt rerum cum laudantium itaque voluptates sint, saepe
+                     et.
+                  </div>
+                  <div class="message-time-left">1:12pm</div>
+               </div>
+            </div>
+         </div>
+         <div class="row no-gutters">
+            <div class="col">
+               <div class="message">
+                  <div class="message-right-first float-end">
+                     Even longer message example. Lorem ipsum dolor sit amet consectetur adipisicing
+                     elit. Dolores dolorum numquam aperiam amet corrupti id, officiis error
+                     consectetur consequatur iure unde quisquam voluptatem soluta voluptas excepturi
+                     esse mollitia voluptatibus iste temporibus ipsa exercitationem modi debitis
+                     animi ab! Itaque, rerum eum. Quisquam tempore quasi harum sint aperiam. Nostrum
+                     omnis iure vitae. et.
+                  </div>
+                  <div class="message-time-right float-end">1:12pm</div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <footer class="footer">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12 no-margin">
+                  <div class="message-row">
+                     <input
+                        type="text"
+                        class="form-control"
+                        name="message-input"
+                        id="message-input"
+                        placeholder="Your message here..."
+                     />
+                     <button
+                        type="submit"
+                        class="btn btn-primary submit-button transparent"
+                        id="submit"
+                     >
+                        <img class="icon" src="images/send.svg" alt="Send" />
+                     </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <script src="node_modules/jquery/dist/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/validator.js"></script>
+      <script src="js/messages.js"></script>
+   </body>
 </html>
