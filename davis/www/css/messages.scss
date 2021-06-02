@@ -12,6 +12,15 @@ $userChat: #cdd5de;
    background-color: $menuBackground;
 }
 
+//Theming the drop down menu
+.dropdown-menu {
+   background-color: $menuBackground;
+}
+
+.dropdown-menu-dark .dropdown-item:active {
+   background-color: $chatBackground !important;
+}
+
 body {
    background-color: $menuBackground;
 }
@@ -184,60 +193,5 @@ body {
       outline: none;
       border: none;
       box-shadow: none;
-   }
-}
-
-//Desktop
-@media (min-width: 900px) {
-   .desktop-only {
-      float: left;
-      display: block;
-      width: 35%;
-      padding: 0;
-      margin: 0;
-
-      embed {
-         height: 100vh;
-         width: 100%;
-      }
-   }
-   .mobile-only {
-      float: left;
-      width: 65%;
-      padding: 0;
-      margin: 0;
-   }
-}
-
-//Tablets
-@media (min-width: 671px) {
-   .desktop-only {
-      float: left;
-      display: block;
-      width: 35%;
-      padding: 0;
-      margin: 0;
-
-      embed {
-         height: 100vh;
-         width: 100%;
-      }
-   }
-   .mobile-only {
-      float: left;
-      width: 65%;
-      padding: 0;
-      margin: 0;
-   }
-}
-
-//Mobile devices
-@media (max-width: 670px) {
-   .desktop-only {
-      display: none;
-   }
-   .mobile-only {
-      margin: 0;
-      padding: 0;
    }
 }

@@ -8,6 +8,14 @@
   background-color: #2f2f40;
 }
 
+.dropdown-menu {
+  background-color: #2f2f40;
+}
+
+.dropdown-menu-dark .dropdown-item:active {
+  background-color: #3a3b52 !important;
+}
+
 .contact-container {
   margin-top: 50px;
   overflow-y: scroll;
@@ -77,24 +85,4 @@
   outline: none;
   border: none;
   box-shadow: none;
-}
-
-@media (max-width: 350px) {
-  .contact-container .contact-row .contact-left img {
-    margin-top: 13px;
-    height: 65px;
-    width: 65px;
-  }
-  .contact-container .contact-row .contact-right {
-    padding-left: 20px;
-  }
-  .contact-container .contact-row .contact-right a .contact-name {
-    font-size: 14pt;
-  }
-  .contact-container .contact-row .contact-right a .contact-message {
-    font-size: 10pt;
-    height: 24px;
-    overflow: hidden;
-    color: gray;
-  }
 }

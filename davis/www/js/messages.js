@@ -1,5 +1,6 @@
 //Adding event listener to the submit button
-document.getElementById("submit").addEventListener("click", userMessage);
+const submitButton = document.getElementById("submit");
+submitButton.addEventListener("click", userMessage);
 
 //Error message - event of invalid message
 function errorMessage(value) {
@@ -30,14 +31,19 @@ function errorMessageClose() {
 }
 
 //Message from contact - left side
-function contactMessage() {
-   document.getElementById("chat").innerHTML += `<div class="row no-gutters">
+function contactMessage(messageText) {
+   document.getElementById("chat").innerHTML +=
+      `<div class="row no-gutters">
     <div class="col">
         <div class="message">
-            <div class="message-left-first">Hi</div>
+            <div class="message-left-first">` +
+      messageText +
+      `</div>
         </div>
     </div>
     </div>`;
+
+   //Scroll to the most recent message
    document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
 }
 
@@ -50,16 +56,6 @@ function userMessage() {
 
    if (validResult == 0) {
       //Get the current time
-      var time = new Date();
-      hour = time.getHours();
-      minutes = time.getMinutes();
-
-      if (hour > 12) {
-         hour = hour - 12;
-         minutes += " pm";
-      } else {
-         minutes += " am";
-      }
 
       //Add the html to the page
       document.getElementById("chat").innerHTML +=
@@ -67,19 +63,22 @@ function userMessage() {
             <div class="row no-gutters">
                 <div class="col">
                     <div class="message">
-                        <div class="message-right float-end">` +
+                        <div class="message-right-first float-end">` +
          messageText +
          `</div>
                         <div class="message-time-right float-end">` +
-         hour +
-         ":" +
-         minutes +
+         getTime() +
          `</div>
                     </div>
                 </div>
             </div>
             `;
+
+      //Scroll to the most recent message
       document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+
+      //Clear the input box as the message successfully sent
+      document.getElementById("message-input").value = "";
    } else {
       errorMessage(validResult);
    }
