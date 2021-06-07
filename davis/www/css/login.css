@@ -1,0 +1,78 @@
+.loginbox{
+  background-color: white;
+  width: 320px;
+  height: 420px;
+  padding: 12px 20px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin: auto;
+  display: block;
+  box-sizing: border-box;
+  transform: translate(-50%,-50%);
+  text-align: left;
+  border: 5px solid #ccc;
+  border-radius: 20px;
+}
+
+.signupbox{
+  background-color: white;
+  width: 320px;
+  height: 525px;
+  padding: 12px 20px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin: auto;
+  display: block;
+  box-sizing: border-box;
+  transform: translate(-50%,-50%);
+  text-align: left;
+  border: 5px solid #ccc;
+  border-radius: 20px;
+}
+
+h1{
+  display:block;
+  text-align: center;
+}
+
+p{
+  font-weight: bold;
+}
+
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 20px;
+}
+
+input[type=text], input[type=password], input[type=email]{
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  height: 20px;
+  background: transparent;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+body{
+  background-color: dimgrey;
+}
+
+a{
+  color: blue;
+  text-decoration: none;
+}
