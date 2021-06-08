@@ -39,7 +39,8 @@ $userChat: #cdd5de;
             text-align: center;
             height: 75px;
             width: 75px;
-            object-fit: cover;
+            -o-object-fit: cover;
+               object-fit: cover;
             border-radius: 50%;
             border: 1px solid gray;
          }
@@ -80,7 +81,8 @@ $userChat: #cdd5de;
 }
 
 .dropdown-icon {
-   filter: invert(1);
+   -webkit-filter: invert(1);
+           filter: invert(1);
    transform: rotate(90deg);
    transition: transform 0.2s;
 }

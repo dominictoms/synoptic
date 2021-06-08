@@ -136,12 +136,14 @@ body {
   margin-left: 10px;
 }
 .submit-button:hover .icon {
+  -webkit-filter: invert(1);
   filter: invert(1);
   fill: black;
   transform: scale(1.3);
 }
 
 .icon {
+  -webkit-filter: invert(1);
   filter: invert(1);
   position: relative;
   padding: auto auto;
@@ -161,6 +163,7 @@ body {
 }
 
 .dropdown-icon {
+  -webkit-filter: invert(1);
   filter: invert(1);
   transform: rotate(90deg);
   transition: transform 0.2s;

@@ -52,6 +52,7 @@
   text-align: center;
   height: 75px;
   width: 75px;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid gray;
@@ -96,6 +97,7 @@
 }
 
 .dropdown-icon {
+  -webkit-filter: invert(1);
   filter: invert(1);
   transform: rotate(90deg);
   transition: transform 0.2s;

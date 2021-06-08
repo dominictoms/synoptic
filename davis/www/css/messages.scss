@@ -148,14 +148,16 @@ body {
    }
 
    &:hover .icon {
-      filter: invert(1);
+      -webkit-filter: invert(1);
+              filter: invert(1);
       fill: black;
       transform: scale(1.3);
    }
 }
 
 .icon {
-   filter: invert(1);
+   -webkit-filter: invert(1);
+           filter: invert(1);
    position: relative;
    padding: auto auto;
 }
@@ -174,7 +176,8 @@ body {
 }
 
 .dropdown-icon {
-   filter: invert(1);
+   -webkit-filter: invert(1);
+           filter: invert(1);
    transform: rotate(90deg);
    transition: transform 0.2s;
 }
