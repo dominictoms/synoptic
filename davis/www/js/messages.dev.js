@@ -1,8 +1,25 @@
 "use strict";
 
-//Adding event listener to the submit button
+//To detect if we are on a mobile device I will use some code found here (https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device)
+if (/Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  //If the device is on mobile the user is controlled by urlparameter at this point as the api use is unknown
+  //This code will get the url parameter and change the header to display the contacts name
+  var urlString = window.location.search;
+  var userParam = new URLSearchParams(urlString);
+  var userParamID = userParam.get("userId");
+  var contactName = document.getElementById("header-contact-name");
+  contactName.innerText = userParamID;
+} //Adding event listener to the submit button
+
+
 var submitButton = document.getElementById("submit");
-submitButton.addEventListener("click", userMessage); //Error message - event of invalid message
+submitButton.addEventListener("click", userMessage); //Send press on enter press
+
+document.addEventListener("keyup", function (event) {
+  if (event.key == "Enter") {
+    userMessage();
+  }
+}); //Error message - event of invalid message
 
 function errorMessage(value) {
   //List of error messages

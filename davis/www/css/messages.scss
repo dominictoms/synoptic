@@ -8,6 +8,11 @@ $userChat: #cdd5de;
    background: transparent; /* make scrollbar transparent */
 }
 
+#back {
+   text-decoration: none;
+   color: $userChat;
+}
+
 .nav-colour {
    background-color: $menuBackground;
 }
@@ -149,7 +154,7 @@ body {
 
    &:hover .icon {
       -webkit-filter: invert(1);
-              filter: invert(1);
+      filter: invert(1);
       fill: black;
       transform: scale(1.3);
    }
@@ -157,7 +162,7 @@ body {
 
 .icon {
    -webkit-filter: invert(1);
-           filter: invert(1);
+   filter: invert(1);
    position: relative;
    padding: auto auto;
 }
@@ -177,7 +182,7 @@ body {
 
 .dropdown-icon {
    -webkit-filter: invert(1);
-           filter: invert(1);
+   filter: invert(1);
    transform: rotate(90deg);
    transition: transform 0.2s;
 }

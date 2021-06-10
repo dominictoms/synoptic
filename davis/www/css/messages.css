@@ -4,6 +4,11 @@
   /* make scrollbar transparent */
 }
 
+#back {
+  text-decoration: none;
+  color: #cdd5de;
+}
+
 .nav-colour {
   background-color: #2f2f40;
 }

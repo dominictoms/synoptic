@@ -17,6 +17,11 @@ $userChat: #cdd5de;
    background-color: $menuBackground;
 }
 
+#back {
+   text-decoration: none;
+   color: $userChat;
+}
+
 .dropdown-menu {
    background-color: $menuBackground;
 }

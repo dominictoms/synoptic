@@ -38,13 +38,14 @@ $userChat: #cdd5de;
       margin-top: 50px;
       overflow-y: scroll;
 
-      a {
-         text-decoration: none;
-         color: black;
+      .contact-row {
+         height: 90px;
+         border-bottom: 1px solid lightgray;
 
-         .contact-row {
-            height: 90px;
-            border-bottom: 1px solid lightgray;
+         a {
+            text-decoration: none;
+            color: black;
+            width: auto;
 
             .contact-left {
                position: relative;
@@ -57,7 +58,7 @@ $userChat: #cdd5de;
                   height: 75px;
                   width: 75px;
                   -o-object-fit: cover;
-                     object-fit: cover;
+                  object-fit: cover;
                   border-radius: 50%;
                   border: 1px solid gray;
                }
@@ -110,7 +111,7 @@ $userChat: #cdd5de;
 
 .dropdown-icon {
    -webkit-filter: invert(1);
-           filter: invert(1);
+   filter: invert(1);
    transform: rotate(90deg);
    transition: transform 0.2s;
 }
@@ -210,5 +211,166 @@ $userChat: #cdd5de;
             }
          }
       }
+   }
+}
+
+//Code for message.scss merge
+#back {
+   text-decoration: none;
+   color: $userChat;
+}
+
+.chat {
+   background-color: $chatBackground;
+   height: calc(100vh - 118px);
+   overflow-y: scroll;
+}
+
+.error-field {
+   display: none;
+   position: absolute;
+   height: 93.5%;
+   width: 100%;
+   z-index: 10;
+   background-color: rgba(50, 50, 50, 0.5);
+}
+
+.error {
+   display: none;
+   text-align: center;
+   height: 100px;
+   width: 200px;
+   background-color: white;
+   padding: 10px;
+   position: absolute;
+   border-radius: 10px;
+   z-index: 11;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   margin: auto;
+}
+
+.close-button {
+   position: absolute;
+   top: 0;
+   right: 8px;
+   color: black;
+   transition: 0.5s;
+
+   &:hover,
+   &focus {
+      transform: scale(1.5);
+      font-weight: 500;
+   }
+}
+
+.message-left {
+   position: relative;
+   min-width: 40px;
+   max-width: 50%;
+   text-align: center;
+   float: left;
+   background-color: $contactChat;
+   padding: 5px 8px 5px 8px;
+   border-radius: 14px 14px 14px 14px;
+   margin: 5px;
+}
+
+.message-left-first {
+   @extend .message-left;
+   border-radius: 0px 14px 14px 14px;
+}
+
+.message-right {
+   position: relative;
+   min-width: 40px;
+   max-width: 50%;
+   text-align: center;
+   float: left;
+   background-color: $userChat;
+   padding: 5px 8px 5px 8px;
+   border-radius: 14px 14px 14px 14px;
+   margin: 5px;
+}
+
+.message-right-first {
+   @extend .message-right;
+   border-radius: 14px 14px 0px 14px;
+}
+
+.message-time {
+   position: relative;
+   color: $userChat;
+   height: 100%;
+   width: 100%;
+   font-size: 8pt;
+   bottom: 0;
+}
+
+.message-time-right {
+   @extend .message-time;
+   text-align: right;
+   float: right;
+   right: 5px;
+}
+
+.message-time-left {
+   @extend .message-time;
+   float: left;
+   left: 5px;
+}
+
+.message-row {
+   background: $menuBackground;
+   display: flex;
+   padding: 12px 12px 12px 12px;
+   align-items: baseline;
+}
+
+.submit-button {
+   background-color: transparent;
+   height: 38px;
+   border: none;
+   margin-left: 10px;
+
+   &:hover {
+      background-color: transparent;
+      height: 38px;
+      border: none;
+      margin-left: 10px;
+   }
+
+   &:hover .icon {
+      -webkit-filter: invert(1);
+      filter: invert(1);
+      fill: black;
+      transform: scale(1.3);
+   }
+}
+
+.icon {
+   -webkit-filter: invert(1);
+   filter: invert(1);
+   position: relative;
+   padding: auto auto;
+}
+
+.blank-panel {
+   height: 100%;
+   width: 100%;
+
+   .image {
+      text-align: center;
+      padding-top: 5%;
+      img {
+         width: 90%;
+      }
+   }
+   .text {
+      color: $userChat;
+      font-size: 20pt;
+      text-align: center;
    }
 }
