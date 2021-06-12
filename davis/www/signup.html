@@ -15,18 +15,22 @@
 
       <h1>Create an Account</h1>
 
-
-      <p>Email</p>
-      <input type="email" placeholder="Enter Email" name="email" required><br><br>
+      <p>Forename</p>
+      <input type="text" placeholder="Enter Forename" name="forename" required>
+      <p>Surname</p>
+      <input type="text" placeholder="Enter Surname" name="surname" required>
 
       <p>Username</p>
-      <input type="text" placeholder="Enter Username" name="userName" required>
+      <input id='usernameCheck' type="text" placeholder="Enter Username" name="userName" required>
 
-      <p>Password</p>
-      <input type="password" placeholder="Enter Password" name="password" required>
+      <p id='alertMessage'>Password</p>
+      <input id='passCheck' type="password" placeholder="Enter Password" name="password" required>
+
+      <input type="image" name="" value="">
 
       <a href="login.html">Already have an account?</a>
-    <button type="submit" name="Signup">Signup</button>
+    <button type="submit" name="Signup" onclick= "checkPassword()">Signup</button>
+
     </div>
 
 
