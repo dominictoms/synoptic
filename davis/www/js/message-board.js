@@ -32,3 +32,30 @@ function function1(contactID) {
       blankPanel.remove();
    }
 }
+
+function addContact(imageURL, contactName, lastMessage) {
+   document.getElementById("contact-panel").innerHTML +=
+      `
+   <div class="row contact-row flex-nowrap">
+      <a href="profile.html">
+         <div class="col-3 contact-left">
+            <img src="` +
+      imageURL +
+      `" alt="" />
+         </div>
+      </a>
+      <a class="contact">
+         <div class="col-9 contact-right">
+            <div class="contact-name">` +
+      contactName +
+      `</div>
+            <div class="contact-message">
+                  ` +
+      lastMessage +
+      `
+            </div>
+         </div>
+      </a>
+   </div>
+   `;
+}
