@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="login.js" defer></script>
+
+</head>
+
+<body>
+
+    <div class="signupbox">
+
+      <h1>Create an Account</h1>
+
+      <p>Forename</p>
+      <input type="text" placeholder="Enter Forename" name="forename" required>
+      <p>Surname</p>
+      <input type="text" placeholder="Enter Surname" name="surname" required>
+
+      <p>Username</p>
+      <input id='usernameCheck' type="text" placeholder="Enter Username" name="userName" required>
+
+      <p id='alertMessage'>Password</p>
+      <input id='passCheck' type="password" placeholder="Enter Password" name="password" required>
+
+      <input type="image" name="" value="">
+
+      <a href="login.html">Already have an account?</a>
+    <button type="submit" name="Signup" onclick= "checkPassword()">Signup</button>
+
+    </div>
+
+
+  </body>
+</html>
