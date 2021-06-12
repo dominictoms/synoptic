@@ -15,21 +15,31 @@
 
       <h1>Create an Account</h1>
 
-      <p>Forename</p>
-      <input type="text" placeholder="Enter Forename" name="forename" required>
-      <p>Surname</p>
-      <input type="text" placeholder="Enter Surname" name="surname" required>
+<form class='' action="#" method="post">
 
-      <p>Username</p>
-      <input id='usernameCheck' type="text" placeholder="Enter Username" name="userName" required>
+  <p>Email</p>
+  <input type="email" placeholder="Enter Email "name="email" required>
 
-      <p id='alertMessage'>Password</p>
-      <input id='passCheck' type="password" placeholder="Enter Password" name="password" required>
+  <p>Forename</p>
+  <input type="text" placeholder="Enter Forename" name="forename" required>
+  <p>Surname</p>
+  <input type="text" placeholder="Enter Surname" name="surname" required>
 
-      <input type="image" name="" value="">
+  <p>Username</p>
+  <input id='usernameCheck' type="text" placeholder="Enter Username" name="userName" required>
 
-      <a href="login.html">Already have an account?</a>
-    <button type="submit" name="Signup" onclick= "checkPassword()">Signup</button>
+  <p id='alertMessage'>Password</p>
+  <input id='passCheck' type="password" placeholder="Enter Password" name="password" maxlength="20" minlength="8" required>
+
+  <p>Profile Picture ( jpeg / png / gif )</p>
+  <input type="file" name="profile_picture" placeholder="Photo" accept="image/png,image/jpeg,image/gif">
+
+  <p></p>
+
+  <a href="login.html">Already have an account?</a>
+<button type="submit" name="Signup" onclick= "checkPassword()">Signup</button>
+</form>
+
 
     </div>
 
