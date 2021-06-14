@@ -1,3 +1,7 @@
+html {
+  overflow-x: hidden;
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
@@ -59,6 +63,17 @@
   padding: 0px;
 }
 
+body {
+  height: 100% !important;
+}
+
+.profile-container {
+  height: 100vh !important;
+}
+.profile-container .profile-mobile {
+  overflow-x: hidden;
+  height: 100%;
+}
 .profile-container .profile-mobile .profile-picture {
   height: 300px;
   text-align: center;
@@ -95,26 +110,34 @@
   width: 100%;
 }
 .profile-container .profile-desktop {
-  overflow-y: hidden;
+  overflow: hidden;
   display: none;
+  height: 100%;
 }
-.profile-container .profile-desktop .profile-picture {
+.profile-container .profile-desktop .row {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.profile-container .profile-desktop .row .profile-picture {
   position: relative;
-  padding: 40px;
-  margin-top: 50px;
-  height: 90vh;
-  width: auto;
+  margin-top: 80px;
+  height: 400px;
+  width: 100vw;
 }
-.profile-container .profile-desktop .profile-picture img {
+.profile-container .profile-desktop .row .profile-picture img {
+  left: 50%;
+  transform: translateX(-50%);
   position: absolute;
-  width: 90%;
   height: auto;
+  max-height: 300px;
+  max-width: 300px;
   border-radius: 66% 34% 26% 74%/73% 71% 29% 27%;
   -webkit-animation: blobMovement 15s ease-in-out alternate infinite;
   animation: blobMovement 15s ease-in-out alternate infinite;
   z-index: 11;
 }
-.profile-container .profile-desktop .profile-picture .overlay {
+.profile-container .profile-desktop .row .profile-picture .overlay {
   position: absolute;
   width: 90%;
   height: auto;
@@ -124,32 +147,28 @@
   filter: brightness(0.8)blur(2px);
   z-index: 10;
 }
-.profile-container .profile-desktop .profile-info {
-  margin-top: 50px;
+.profile-container .profile-desktop .row .profile-info {
+  float: left;
+  text-align: center;
 }
-.profile-container .profile-desktop .profile-info .center {
-  padding-top: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
-}
-.profile-container .profile-desktop .profile-info .center .text-large {
+.profile-container .profile-desktop .row .profile-info .text-large {
   font-size: 24pt;
   font-weight: 600;
 }
-.profile-container .profile-desktop .profile-info .center .text-medium {
+.profile-container .profile-desktop .row .profile-info .text-medium {
   font-size: 20pt;
   font-weight: 500;
 }
-.profile-container .profile-desktop .profile-info .center .text-small {
+.profile-container .profile-desktop .row .profile-info .text-small {
   font-size: 16pt;
   font-weight: 400;
 }
-.profile-container .profile-desktop .profile-info .center .text-small a {
+.profile-container .profile-desktop .row .profile-info .text-small a {
   text-decoration: none;
 }
-.profile-container .profile-desktop .profile-info .center .map {
+.profile-container .profile-desktop .row .profile-info .map {
   padding: 10px;
-  height: 400px;
+  height: 300px;
   width: 100%;
 }
 

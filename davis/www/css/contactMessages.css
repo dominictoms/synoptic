@@ -326,3 +326,11 @@
   font-size: 20pt;
   text-align: center;
 }
+
+#footer {
+  display: none;
+}
+
+#chat {
+  height: 100%;
+}

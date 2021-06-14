@@ -3,6 +3,10 @@ $chatBackground: #3a3b52;
 $contactChat: #5e9ef7;
 $userChat: #cdd5de;
 
+html {
+   overflow-x: hidden;
+}
+
 ::-webkit-scrollbar {
    width: 0px;
    background: transparent; /* make scrollbar transparent */
@@ -67,9 +71,16 @@ $userChat: #cdd5de;
    padding: 0px;
 }
 
+body {
+   height: 100% !important;
+}
+
 //Content
 .profile-container {
+   height: 100vh !important;
    .profile-mobile {
+      overflow-x: hidden;
+      height: 100%;
       .profile-picture {
          height: 300px;
          text-align: center;
@@ -110,41 +121,46 @@ $userChat: #cdd5de;
       }
    }
    .profile-desktop {
-      overflow-y: hidden;
+      overflow: hidden;
       display: none;
-      .profile-picture {
-         position: relative;
-         padding: 40px;
-         margin-top: 50px;
-         height: 90vh;
-         width: auto;
-         img {
-            position: absolute;
-            width: 90%;
-            height: auto;
-            border-radius: 66% 34% 26% 74% / 73% 71% 29% 27%;
-            -webkit-animation: blobMovement 15s ease-in-out alternate infinite;
-            animation: blobMovement 15s ease-in-out alternate infinite;
-            z-index: 11;
-         }
-         .overlay {
-            position: absolute;
-            width: 90%;
-            height: auto;
-            border-radius: 66% 34% 26% 74% / 73% 71% 29% 27%;
-            animation: blobMovement 10s ease-in-out alternate-reverse infinite;
-            -webkit-filter: brightness(0.8) + blur(2px);
-            filter: brightness(0.8) + blur(2px);
-            z-index: 10;
-         }
-      }
-      .profile-info {
-         margin-top: 50px;
-         .center {
-            padding-top: 50px;
-            margin-left: 50px;
-            margin-right: 50px;
+      height: 100%;
 
+      .row {
+         margin: 0;
+         padding: 0;
+         overflow-x: hidden;
+         .profile-picture {
+            position: relative;
+            margin-top: 80px;
+            height: 400px;
+            width: 100vw;
+            img {
+               left: 50%;
+               transform: translateX(-50%);
+               position: absolute;
+               height: auto;
+               max-height: 300px;
+               max-width: 300px;
+               border-radius: 66% 34% 26% 74% / 73% 71% 29% 27%;
+               -webkit-animation: blobMovement 15s ease-in-out alternate infinite;
+               animation: blobMovement 15s ease-in-out alternate infinite;
+               z-index: 11;
+            }
+            .overlay {
+               position: absolute;
+               width: 90%;
+               height: auto;
+               border-radius: 66% 34% 26% 74% / 73% 71% 29% 27%;
+               animation: blobMovement 10s ease-in-out alternate-reverse infinite;
+               -webkit-filter: brightness(0.8) + blur(2px);
+               filter: brightness(0.8) + blur(2px);
+               z-index: 10;
+            }
+         }
+
+         .profile-info {
+            float: left;
+            text-align: center;
             .text-large {
                font-size: 24pt;
                font-weight: 600;
@@ -162,7 +178,7 @@ $userChat: #cdd5de;
             }
             .map {
                padding: 10px;
-               height: 400px;
+               height: 300px;
                width: 100%;
             }
          }

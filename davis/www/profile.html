@@ -29,13 +29,6 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-      <meta
-         http-equiv="Content-Security-Policy"
-         content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';
-          style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;
-           script-src 'self' https://maps.google.com/ 'unsafe-inline' 'unsafe-eval';
-            frame-src https://maps.google.com/ https://www.google.com/;"
-      />
       <meta name="format-detection" content="telephone=no" />
       <meta name="msapplication-tap-highlight" content="no" />
       <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
@@ -87,9 +80,7 @@
                      <div class="text-small">#LivingInPeru, welcome to my profile! 👌</div>
                      <hr />
                      <div class="text-medium">Contact information:</div>
-                     <div class="text-small">
-                        Phone: <a href="tel:+44(0)7700 900799">+44(0)7700 900799</a>
-                     </div>
+                     <div class="text-small">Username: BigMike</div>
                      <div class="text-small">
                         Email: <a href="mailto:fake@fake.com">Mike.Johnson@gmail.com</a>
                      </div>
@@ -97,7 +88,7 @@
                      <div class="text-medium">Last seen location:</div>
                      <div class="map">
                         <iframe
-                           src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=-4.452793,-81.2777126+()&amp;t=h&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                           src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=36.1699,115.1398+()&amp;t=h&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                         ></iframe>
                      </div>
                   </div>
@@ -106,29 +97,27 @@
          </div>
          <div class="profile-desktop">
             <div class="row">
-               <div class="col-lg-6">
-                  <div class="profile-picture">
-                     <img src="images/demos/men/man1.jpg" alt="" />
-                     <img class="overlay" src="images/demos/men/man1.jpg" alt="" />
-                  </div>
+               <div class="profile-picture">
+                  <img src="images/demos/men/man1.jpg" alt="" />
+                  <img class="overlay" src="images/demos/men/man1.jpg" alt="" />
                </div>
-               <div class="col-lg-6">
-                  <div class="profile-info">
-                     <div class="center">
-                        <div class="text-large">Mike Johnson</div>
-                        <div class="text-small">#LivingInPeru, welcome to my profile! 👌</div>
-                        <hr />
-                        <div class="text-medium">Contact information:</div>
-                        <div class="text-small">
-                           Phone: <a href="tel:+44(0)7700 900799">+44(0)7700 900799</a>
-                        </div>
-                        <div class="text-small">
-                           Email: <a href="mailto:fake@fake.com">Mike.Johnson@gmail.com</a>
-                        </div>
-                        <hr />
-                        <div class="text-medium">Last seen location:</div>
-                        <div class="map" id="map"></div>
+               <div class="row profile-info">
+                  <div class="col-4">
+                     <div class="text-large">Mike Johnson</div>
+                     <div class="text-small">#LivingInPeru, welcome to my profile! 👌</div>
+                  </div>
+
+                  <div class="col-4">
+                     <div class="text-medium">Contact information:</div>
+                     <div class="text-small">Username: BigMike</div>
+                     <div class="text-small">
+                        Email: <a href="mailto:fake@fake.com">Mike.Johnson@gmail.com</a>
                      </div>
+                  </div>
+
+                  <div class="col-4">
+                     <div class="text-medium">Last seen location:</div>
+                     <div class="map" id="map"></div>
                   </div>
                </div>
             </div>
