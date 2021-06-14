@@ -34,6 +34,35 @@
    border-radius: 76% 72% 30% 70% / 60% 40% 60% 40%;
    animation: blobMovement 3s ease-in-out alternate-reverse infinite;
 }
+.overlay-signup {
+   background-color: #2f2f40;
+   width: 450px;
+   height: 800px;
+   padding: 12px 20px;
+   top: 50%;
+   left: 50%;
+   position: absolute;
+   margin: auto;
+   display: block;
+   box-sizing: border-box;
+   transform: translate(-50%, -50%);
+   text-align: left;
+   border-radius: 20px;
+   z-index: 10;
+   border-radius: 54% 34% 50% 50% / 0% 0% 100% 100%;
+   animation: blobMovement2 3s ease-in-out alternate-reverse infinite;
+}
+@keyframes blobMovement2 {
+   0% {
+      border-radius: 50% 50% 50% 50% / 25% 25% 75% 75%;
+   }
+   50% {
+      border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+   }
+   100% {
+      border-radius: 50% 50% 50% 50% / 75% 75% 25% 25%;
+   }
+}
 @keyframes blobMovement {
    0% {
       border-radius: 87% 13% 90% 10% / 87% 8% 92% 13%;
@@ -46,7 +75,8 @@
    }
 }
 .signupbox {
-   background-color: white;
+   z-index: 11;
+   background-color: #3a3b52;
    width: 320px;
    height: 720px;
    padding: 12px 20px;
@@ -60,6 +90,7 @@
    text-align: left;
    border: 5px solid #ccc;
    border-radius: 20px;
+   color: white;
 }
 
 h1 {
@@ -87,7 +118,7 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
    width: 90%;
-   padding: 10px;
+   padding: 0px;
    margin-bottom: 20px;
    margin-top: none;
    border-top: none;
