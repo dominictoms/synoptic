@@ -122,9 +122,8 @@ int main()
     app().registerHandler("/contactMessages", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
     {
         HttpResponsePtr resp;
-        resp = HttpResponse::newRedirectionResponse("contactMessages.html");
-
-        
+        resp = HttpResponse::newRedirectionResponse("contactMessages.html");  
+    
 	try
 	{
 		
@@ -132,19 +131,13 @@ int main()
 	 			+ resp->getCookie("username").getValue() + "\'");
 
 		std::string hashedAccountId = utils::getMd5(query[0][0].as<std::string>() + query[0][1].as<std::string>());
-		if(resp->getCookie("accountId").getValue() != hashedAccountId)
+		if(resp->getCookie("accountId").getValue().find(hashedAccountId) != std::string::npos)
 		{
 			std::cout << "AccountID not found!\n";
             for(auto const& cookies : resp->getCookies())
 			{
 				resp->removeCookie(cookies.first);
 			}
-		}
-		if(resp->cookies().empty())
-		{
-            std::cout << resp->
-			resp = HttpResponse::newRedirectionResponse("login.html");
-			callback(resp);
 		}
 	} catch(const orm::DrogonDbException& e)
 	{
@@ -197,7 +190,7 @@ int main()
 						json["email"] = userProfile->getEmail();
 						json["longitude"] = userProfile->getLongitude();
 						json["latitude"] = userProfile->getLatitude();
-						resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+						resp = HttpResponse::newRedirectionResponse("/contactMessages");
                         resp->addCookie("username", userProfile->getUsername());
                         resp->addCookie("accountId", utils::getMd5(std::to_string(userProfile->getAccountId()) + userProfile->getHashsalt()));
                         resp->addCookie("email", userProfile->getEmail());	
@@ -209,7 +202,7 @@ int main()
 					{
 					 
 						resp = HttpResponse::newRedirectionResponse("login.html?state=badpassword");
-						callback(resp);
+             			callback(resp);
 					}
 				}
             }
