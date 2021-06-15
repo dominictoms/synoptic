@@ -1,11 +1,17 @@
 #include "TestCtrl.h"
+#include <iostream>
+
 void TestCtrl::asyncHandleHttpRequest(const HttpRequestPtr &req,
                                       std::function<void (const HttpResponsePtr &)> &&callback)
 {
-    //write your application logic here
-    auto resp=HttpResponse::newHttpResponse();
+	// this is scuffed but just a placeholder
+	Json::Value json;
+	json["imageURL"] = "https://daviss3bucket.s3.eu-west-2.amazonaws.com/lum.jpg";
+	json["contactName"] = "Terry Davis";
+	json["lastMessage"] = "I like elephants and God likes elephants.";
+
+	// send the json off
+	auto resp = HttpResponse::newHttpJsonResponse(json);
     resp->setStatusCode(k200OK);
-    resp->setContentTypeCode(CT_TEXT_HTML);
-    resp->setBody("Hello World!");
     callback(resp);
 }

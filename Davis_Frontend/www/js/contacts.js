@@ -1,5 +1,8 @@
+// lets go boys
+"use strict";
+
 // send a get request when the page loads
-onload=addContacts(httpGet("test"));
+onload=addContacts(httpGet("contacts"));
 
 // send a get request and return the response
 function httpGet(url)
@@ -13,5 +16,9 @@ function httpGet(url)
 // loop through contacts json and add the contacts
 function addContacts(json)
 {
-	console.log(json);
+	// convert from json to object
+	json = JSON.parse(json);
+
+	// add the new user
+	addContact(json.imageURL, json.contactName, json.lastMessage)
 }
