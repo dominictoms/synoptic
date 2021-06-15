@@ -15,10 +15,10 @@ private:
     float mLatitude, mLongitude;
     int mAccountId;
 public:
+
     profile(int accountId, const std::string& forename, const std::string& surname, const std::string& email, const std::string& username, 
     const std::string& hashsalt, const std::string& password, const std::string& profilePic, float latitude, float longitude);
     profile(const Row& row);
-
     const int getAccountId();
     const std::string& getForename();
     const std::string& getSurname();

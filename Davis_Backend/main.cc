@@ -7,8 +7,7 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
-#include <awsdoc/s3/s3_examples.h>
-#include <curl/curl.h>            
+#include <awsdoc/s3/s3_examples.h>         
 #include "profile.h"
 
 using namespace drogon;
@@ -95,30 +94,6 @@ int main()
     app().setDocumentRoot("../../Davis_Frontend/www");
     app().enableDynamicViewsLoading({"../../Davis_Frontend/www"});
     app().setHomePage("signup.html");
-
-    app().registerHandler("/", [](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) 
-    {
-
-        bool registered = req->session()->getOptional<bool>("registered").value_or(false);
-        HttpResponsePtr resp;
-        
-        if(!registered)
-            resp = HttpResponse::newHttpViewResponse("signup");
-
-        else
-        {
-            bool logined = req->session()->getOptional<bool>("logined").value_or(false);
-            if (!logined)
-                resp = HttpResponse::newHttpViewResponse("login");
-
-            else
-            {
-                resp = HttpResponse::newHttpViewResponse("profile");
-            }
-       
-        }
-        callback(resp);
-    });
  
     app().registerHandler("/logout", [userProfile](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) mutable
         {
@@ -142,6 +117,43 @@ int main()
             
     },
         {Get}
+    );
+
+    app().registerHandler("/contactMessages", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
+    {
+        HttpResponsePtr resp;
+        resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+
+        
+	try
+	{
+		
+		auto query = app().getDbClient()->execSqlSync("SELECT accountId, hashsalt from account where userName = \'" 
+	 			+ resp->getCookie("username").getValue() + "\'");
+
+		std::string hashedAccountId = utils::getMd5(query[0][0].as<std::string>() + query[0][1].as<std::string>());
+		if(resp->getCookie("accountId").getValue() != hashedAccountId)
+		{
+			std::cout << "AccountID not found!\n";
+            for(auto const& cookies : resp->getCookies())
+			{
+				resp->removeCookie(cookies.first);
+			}
+		}
+		if(resp->cookies().empty())
+		{
+            std::cout << resp->
+			resp = HttpResponse::newRedirectionResponse("login.html");
+			callback(resp);
+		}
+	} catch(const orm::DrogonDbException& e)
+	{
+		LOG_ERROR << e.base().what() << '\n';
+	}
+        callback(resp);
+
+    },
+    {Get}
     );
    
     app().registerHandler("/login",
@@ -178,7 +190,6 @@ int main()
 
 					if(userProfile->getPassword() == utils::getMd5(userProfile->getHashsalt() + passwd))
 					{
-							
 						Json::Value json;
 						json["username"] = userProfile->getUsername();
 						json["surname"] = userProfile->getSurname();
@@ -187,6 +198,10 @@ int main()
 						json["longitude"] = userProfile->getLongitude();
 						json["latitude"] = userProfile->getLatitude();
 						resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+                        resp->addCookie("username", userProfile->getUsername());
+                        resp->addCookie("accountId", utils::getMd5(std::to_string(userProfile->getAccountId()) + userProfile->getHashsalt()));
+                        resp->addCookie("email", userProfile->getEmail());	
+
 						callback(resp);
 					}
 
