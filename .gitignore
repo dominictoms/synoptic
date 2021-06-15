@@ -1,3 +1,16 @@
+# misc file formats
 .vscode
 .idea
 todo
+.swp
+.DS_Store
+
+# backend stuff
+Davis_Backend/build
+
+# frontend stuff
+Davis_Frontend/node_modules/
+Davis_Frontend/plugins/
+Davis_Frontend/platforms/
+Davis_Frontend/
+Davis_Frontend/package-lock.json
