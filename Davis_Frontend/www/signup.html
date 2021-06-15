@@ -5,10 +5,10 @@
       <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
       <title>Signup</title>
       <link rel="stylesheet" href="css/login.css" />
-      <script src="login.js" defer></script>
+      <script src="js/signUpCheck.js" defer></script>
    </head>
       
-      <form class="" action="/signup" method="post">
+      <form name="signup" action="/signup" method="post" id="signupform" >
       <div class="signupbox">
          <h1>Create an Account</h1>
 
@@ -26,7 +26,7 @@
                id="usernameCheck"
                type="text"
                placeholder="Enter Username"
-               name="userName"
+               name="username"
                required
             />
 
@@ -52,7 +52,7 @@
             <p></p>
 
             <a href="login.html">Already have an account?</a>
-            <button type="submit" name="Signup" onclick="checkPassword()">Signup</button>
+            <button type="submit" name="Signup" onclick="return validateForm()">Signup</button>
             <div class="error" id="error"><h2>Incorrect information, please try yet</h2></div>
          
       </div>
