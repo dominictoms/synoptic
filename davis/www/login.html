@@ -4,7 +4,7 @@
       <meta charset="utf-8" />
       <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
       <title>Login</title>
-      <link rel="stylesheet" href="css/login.min.css" />
+      <link rel="stylesheet" href="css/login.css" />
       <script src="login.js" defer></script>
    </head>
 
@@ -31,29 +31,8 @@
             <a href="#">Forgot Your Password</a><br />
 
             <a href="signup.html">Signup</a>
+            <div class="error" id="error"><h2>Incorrect information, please try yet</h2></div>
          </div>
       </form>
-      <script>
-         setTimeout(function(){ alert("Hello"); }, 1000);
-         fetch('localhost:8848/login.json')
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
-
-      // Examine the text in the response
-      response.json().then(function(data) {
-        console.log(data);
-      });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-
-      </script>
    </body>
 </html>

@@ -3,16 +3,16 @@
    <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
-      <title>Login</title>
-      <link rel="stylesheet" href="css/login.min.css" />
+      <title>Signup</title>
+      <link rel="stylesheet" href="css/login.css" />
       <script src="login.js" defer></script>
    </head>
-
-   <body>
+      
+      <form class="" action="/signup" method="post">
       <div class="signupbox">
          <h1>Create an Account</h1>
 
-         <form class="" action="/signup" method="post">
+         
             <p>Email</p>
             <input type="email" placeholder="Enter Email " name="email" required />
 
@@ -53,8 +53,11 @@
 
             <a href="login.html">Already have an account?</a>
             <button type="submit" name="Signup" onclick="checkPassword()">Signup</button>
-         </form>
+            <div class="error" id="error"><h2>Incorrect information, please try yet</h2></div>
+         
       </div>
+   </form>
       <div class="overlay-signup"></div>
    </body>
+   <script src="js/error.js" defer></script>
 </html>
