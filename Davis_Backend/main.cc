@@ -94,27 +94,43 @@ int main()
     app().setDocumentRoot("../../Davis_Frontend/www");
     app().enableDynamicViewsLoading({"../../Davis_Frontend/www"});
     app().setHomePage("signup.html");
- 
-    app().registerHandler("/logout", [userProfile](const HttpRequestPtr &req, std::function<void(const HttpResponsePtr &)> &&callback) mutable
-        {
-            userProfile = nullptr;
-            HttpResponsePtr resp = HttpResponse::newHttpResponse();
-            req->session()->erase("logined");
-            resp->setBody("<script>window.location.href = \"/\";</script>");
-            
-            callback(resp);
-    
-        },
-            {Get}
-        );
     
     app().registerHandler("/profile", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
     {
+        HttpResponsePtr resp;
 
+        std::cout << req->getCookie("accountId") << '\n';
+        if(req->cookies().size() <= 1)
+        {
+            resp = HttpResponse::newRedirectionResponse("login.html");
+            callback(resp);
+        }
 
-        auto resp = HttpResponse::newRedirectionResponse("profile.html");
+       try
+	    {
+		
+		    auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountId, hashsalt from account where userName = \'" 
+	 			    + req->getCookie("username") + "\'");
+
+		    std::string hashedAccountId =query[0][0].as<std::string>();
+
+    	    if(req->getCookie("accountId") != hashedAccountId)
+		    {
+                std::cout << "account not found!\n";
+			    resp = HttpResponse::newRedirectionResponse("login.html");
+                callback(resp);
+     	    }
+            else
+            {
+                     resp = HttpResponse::newRedirectionResponse("profile.html");
+                     callback(resp);
+            }
+	} catch(const orm::DrogonDbException& e)
+	{
+		LOG_ERROR << e.base().what() << '\n';
+	}
         callback(resp);
-            
+
     },
         {Get}
     );
@@ -122,23 +138,40 @@ int main()
     app().registerHandler("/contactMessages", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
     {
         HttpResponsePtr resp;
-        resp = HttpResponse::newRedirectionResponse("contactMessages.html");  
-    
-	try
-	{
+                std::cout << req->getCookie("username") << '\n';
+				
+        if(req->cookies().size() <= 1)    
+        {
+            resp = HttpResponse::newRedirectionResponse("login.html");
+            callback(resp);  
+        }     
+        try
+	    {
 		
-		auto query = app().getDbClient()->execSqlSync("SELECT accountId, hashsalt from account where userName = \'" 
-	 			+ resp->getCookie("username").getValue() + "\'");
+		auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountId, hashsalt from account where username=\'" 
+	 			+ req->getCookie("username") + "\'");
 
-		std::string hashedAccountId = utils::getMd5(query[0][0].as<std::string>() + query[0][1].as<std::string>());
-		if(resp->getCookie("accountId").getValue().find(hashedAccountId) != std::string::npos)
+  
+      
+        for(const auto& res : query)
+        {
+            for(const auto& fields : res)
+            {
+                std::cout << fields.as<std::string>() << '\t';
+            }
+            std::cout << "\n";
+        }
+		std::string hashedAccountId =query[0][0].as<std::string>();
+		if(req->getCookie("accountId") != hashedAccountId)
 		{
-			std::cout << "AccountID not found!\n";
-            for(auto const& cookies : resp->getCookies())
-			{
-				resp->removeCookie(cookies.first);
-			}
+			resp = HttpResponse::newRedirectionResponse("login.html");
+            callback(resp);
 		}
+        else
+        {
+                 resp = HttpResponse::newRedirectionResponse("contactMessages.html");  
+                 callback(resp);
+        }
 	} catch(const orm::DrogonDbException& e)
 	{
 		LOG_ERROR << e.base().what() << '\n';
@@ -161,9 +194,7 @@ int main()
 
                 // temporary insert check
                 auto check = app().getDbClient()->execSqlSync("select * from account where username=\'" + user + "\'");
-                std::cout << check.size() << '\n';
-
-				// check if user exists
+        		// check if user exists
                 if(check.size() == 0)
                 {
 					// set signup page to failed state if account already exits
@@ -175,6 +206,8 @@ int main()
 				else
 				{
 					orm::Result query = app().getDbClient()->execSqlSync("SELECT * from account WHERE username =\'" + user + "\'");
+                          
+        
 					for(const auto& rows : query)
 					{           
 						
@@ -190,12 +223,14 @@ int main()
 						json["email"] = userProfile->getEmail();
 						json["longitude"] = userProfile->getLongitude();
 						json["latitude"] = userProfile->getLatitude();
-						resp = HttpResponse::newRedirectionResponse("/contactMessages");
-                        resp->addCookie("username", userProfile->getUsername());
-                        resp->addCookie("accountId", utils::getMd5(std::to_string(userProfile->getAccountId()) + userProfile->getHashsalt()));
-                        resp->addCookie("email", userProfile->getEmail());	
-
-						callback(resp);
+						resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+                        Cookie idCookie("accountId", std::to_string(userProfile->getAccountId()));
+                        idCookie.setHttpOnly(false);
+                        resp->addCookie(idCookie);
+                        Cookie userCookie("username",userProfile->getUsername());
+                        userCookie.setHttpOnly(false);
+                        resp->addCookie(userCookie);
+                        callback(resp);
 					}
 
 					else
@@ -227,7 +262,7 @@ int main()
             {
                 /* temporary insert check */
                 auto check = app().getDbClient()->execSqlSync("select * from account where username=\'" + params["username"] + "\'");
-                std::cout << check.size() << '\n';
+               
 
                 if(check.size() > 0)
                 {
@@ -253,7 +288,7 @@ int main()
             }
             
 			// output account table after adding new user
-			/*
+			
             app().getDbClient()->execSqlAsync("SELECT * FROM account", [](const orm::Result& r)
             {
                 for(const auto& rows : r)
@@ -270,7 +305,7 @@ int main()
             {
                 LOG_ERROR << e.base().what() << '\n';
             });
-			*/
+			
             
 			// redirect to login page after adding new user
             resp = HttpResponse::newRedirectionResponse("/login.html");

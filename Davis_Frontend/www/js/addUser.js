@@ -15,3 +15,4 @@ function addUserShow() {
 
    document.getElementById("add-user-close").addEventListener("click", addUserClose);
 }
+

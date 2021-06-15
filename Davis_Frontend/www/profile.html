@@ -125,18 +125,5 @@
       </div>
       <script src="js/bootstrap.min.js"></script>
       <script src="js/location.js"></script>
-      <script>
-			// send a get request when the page loads
-			onload=console.log(httpGet("test"));
-
-			// send a get request and return the response
-			function httpGet(url)
-			{
-				var http = new XMLHttpRequest();
-				http.open("GET", url, false);
-				http.send(null);
-				return http.responseText;
-			}
-      </script>
    </body>
 </html>
