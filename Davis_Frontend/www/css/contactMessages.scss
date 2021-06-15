@@ -21,6 +21,62 @@ $userChat: #cdd5de;
    background-color: $chatBackground !important;
 }
 
+.add-user-panel {
+   display: none;
+   position: absolute;
+   height: 200px;
+   width: 300px;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   z-index: 11;
+   background-color: $chatBackground;
+   text-align: center;
+   .title {
+      padding-top: 15px;
+      color: white;
+   }
+   input[type="text"] {
+      margin-top: 40px;
+      width: 70%;
+      padding: 0px;
+      height: 20px;
+      border: none;
+      border-bottom: 1px solid white;
+      background: transparent;
+      color: white;
+   }
+
+   input[type="submit"] {
+      background-color: #3a3b52;
+      border: white 1px solid;
+      width: auto;
+   }
+   .close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: white;
+      margin: 20px;
+   }
+}
+
+.darken-panel {
+   display: none;
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   margin: auto;
+   z-index: 10;
+   background-color: $menuBackground;
+}
+
 .contact-panel {
    float: left;
    display: block;
@@ -32,7 +88,7 @@ $userChat: #cdd5de;
    .navbar {
       position: fixed !important;
       width: 35%;
-      z-index: 11;
+      z-index: 9;
    }
    .contact-container {
       margin-top: 50px;

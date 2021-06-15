@@ -36,7 +36,6 @@ function function1(contactID) {
       footer.style.display = "block";
       chat.style.height = "calc(100% - 118px)";
       blankPanel.remove();
-      console.log("pog");
    }
 }
 
@@ -50,7 +49,6 @@ function addContact(imageURL, contactName, lastMessage) {
       lastMessage +
       "\n            </div>\n         </div>\n      </a>\n   </div>\n   ";
 
-   console.log("works");
    var contact = document.getElementsByClassName("contact");
 
    var _loop = function _loop(i) {

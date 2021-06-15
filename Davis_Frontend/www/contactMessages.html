@@ -38,6 +38,18 @@
       <link rel="stylesheet" href="css/contactMessages.css" />
    </head>
    <body>
+      <div class="add-user-panel" id="add-user-panel">
+         <div class="title">Add Contact</div>
+         <div class="close" id="add-user-close">&#10005</div>
+   <form action="">
+      <input type="text" contactname="" id="" placeholder="Username">
+      <br>
+      <br>
+      <br>
+      <input type="submit" value="Add contact">
+   </form>
+</div>
+      <div class="darken-panel" id="darken-panel"></div>
       <div class="container-fluid contact-panel">
          <!--To contain contact code only-->
          <nav class="navbar navbar-dark nav-colour static-top">
@@ -58,7 +70,7 @@
                      class="dropdown-menu dropdown-menu-dark dropdown-menu-right"
                      aria-labelledby="dropdownMenuButton2"
                   >
-                     <li><a class="dropdown-item" href="#">Add contact</a></li>
+                     <li><a class="dropdown-item" href="javascript:addUserShow()">Add contact</a></li>
                      <li><a class="dropdown-item" href="#">Send message</a></li>
                      <li><hr class="dropdown-divider" /></li>
                      <li><a class="dropdown-item" href="login.html">Log out</a></li>
@@ -270,5 +282,6 @@
       <script src="js/time.min.js"></script>
       <script src="js/messages.js"></script>
       <script src="js/contacts.js"></script>
+      <script src="js/addUser.js"></script>
    </body>
 </html>

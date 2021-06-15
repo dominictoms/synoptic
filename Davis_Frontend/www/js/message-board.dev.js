@@ -34,13 +34,11 @@ function function1(contactID) {
     footer.style.display = "block";
     chat.style.height = "calc(100% - 118px)";
     blankPanel.remove();
-    console.log("pog");
   }
 }
 
 function addContact(imageURL, contactName, lastMessage) {
   document.getElementById("contact-panel").innerHTML += '\n   <div class="row contact-row flex-nowrap">\n      <a href="profile.html">\n         <div class="col-3 contact-left">\n            <img src="' + imageURL + '" alt="" />\n         </div>\n      </a>\n      <a class="contact">\n         <div class="col-9 contact-right">\n            <div class="contact-name">' + contactName + '</div>\n            <div class="contact-message">\n                  ' + lastMessage + "\n            </div>\n         </div>\n      </a>\n   </div>\n   ";
-  console.log("works");
   var contact = document.getElementsByClassName("contact");
 
   var _loop = function _loop(i) {
