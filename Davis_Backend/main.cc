@@ -8,6 +8,7 @@
 #include <aws/s3/S3Client.h>
 #include <aws/s3/model/PutObjectRequest.h>
 #include <awsdoc/s3/s3_examples.h>
+#include <curl/curl.h>            
 #include "profile.h"
 
 using namespace drogon;
@@ -103,14 +104,15 @@ int main()
         
         if(!registered)
             resp = HttpResponse::newHttpViewResponse("signup");
+
         else
         {
             bool logined = req->session()->getOptional<bool>("logined").value_or(false);
             if (!logined)
                 resp = HttpResponse::newHttpViewResponse("login");
+
             else
             {
-
                 resp = HttpResponse::newHttpViewResponse("profile");
             }
        
@@ -126,7 +128,6 @@ int main()
             resp->setBody("<script>window.location.href = \"/\";</script>");
             
             callback(resp);
-            
     
         },
             {Get}
@@ -147,37 +148,55 @@ int main()
         [userProfile](const HttpRequestPtr &req,
            std::function<void(const HttpResponsePtr &)> &&callback) mutable {
             auto resp = HttpResponse::newHttpResponse();
-            std::string user = req->getParameter("userName");
+            std::string user = req->getParameter("username");
             std::string passwd = req->getParameter("password");
       
             try
             {
-                orm::Result query = app().getDbClient()->execSqlSync("SELECT * from account WHERE username =\'" + user + "\'");
-                for(const auto& rows : query)
-                {           
-                    
-                    userProfile = new profile(rows);
+
+                // temporary insert check
+                auto check = app().getDbClient()->execSqlSync("select * from account where username=\'" + user + "\'");
+                std::cout << check.size() << '\n';
+
+				// check if user exists
+                if(check.size() == 0)
+                {
+					// set signup page to failed state if account already exits
+                    resp = HttpResponse::newRedirectionResponse("login.html?state=badusername");
+                    callback(resp);
                 }
 
-                if(userProfile->getPassword() == utils::getMd5(userProfile->getHashsalt() + passwd))
-                {
-                    
-                    Json::Value json;
-                    json["username"] = userProfile->getUsername();
-                    json["surname"] = userProfile->getSurname();
-                    json["forename"] = userProfile->getForename();
-                    json["email"] = userProfile->getEmail();
-                    json["longitude"] = userProfile->getLongitude();
-                    json["latitude"] = userProfile->getLatitude();
-                    resp = HttpResponse::newRedirectionResponse("contactMessages.html");
-                    callback(resp);
-                }
-                else
-                {
-                 
-                    resp = HttpResponse::newRedirectionResponse("login.html?state=failed");
-                    callback(resp);
-                }
+				// the user exists
+				else
+				{
+					orm::Result query = app().getDbClient()->execSqlSync("SELECT * from account WHERE username =\'" + user + "\'");
+					for(const auto& rows : query)
+					{           
+						
+						userProfile = new profile(rows);
+					}
+
+					if(userProfile->getPassword() == utils::getMd5(userProfile->getHashsalt() + passwd))
+					{
+							
+						Json::Value json;
+						json["username"] = userProfile->getUsername();
+						json["surname"] = userProfile->getSurname();
+						json["forename"] = userProfile->getForename();
+						json["email"] = userProfile->getEmail();
+						json["longitude"] = userProfile->getLongitude();
+						json["latitude"] = userProfile->getLatitude();
+						resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+						callback(resp);
+					}
+
+					else
+					{
+					 
+						resp = HttpResponse::newRedirectionResponse("login.html?state=badpassword");
+						callback(resp);
+					}
+				}
             }
 
             catch(const orm::DrogonDbException& e)
@@ -191,7 +210,6 @@ int main()
           
 		app().registerHandler("/signup", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr&)>&& callback)
         {
-
             auto params = req->getParameters();
             auto resp = HttpResponse::newHttpResponse();   
             req->session()->insert("registered", true);
@@ -200,13 +218,13 @@ int main()
             try
             {
                 /* temporary insert check */
-                auto check = app().getDbClient()->execSqlSync("select * from account where username=\'" + params["userName"] + "\'");
+                auto check = app().getDbClient()->execSqlSync("select * from account where username=\'" + params["username"] + "\'");
                 std::cout << check.size() << '\n';
 
                 if(check.size() > 0)
                 {
 					// set signup page to failed state if account already exits
-                    resp = HttpResponse::newRedirectionResponse("signup.html?state=failed");
+                    resp = HttpResponse::newRedirectionResponse("signup.html?state=existingaccount");
                     callback(resp);
                 }
 
@@ -215,7 +233,7 @@ int main()
 					// otherwise add new user to the database
                     auto insert = app().getDbClient()->execSqlSync(
                     "insert into account (username, forename, surname, password, profilepic, latitude, longitude, hashsalt, email) "
-                       "VALUES(\'" + params["userName"] + "\'" + ",\'" + params["forename"] + "\',\'" + params["surname"] 
+                       "VALUES(\'" + params["username"] + "\'" + ",\'" + params["forename"] + "\',\'" + params["surname"] 
                        + "\',\'" + utils::getMd5(hashsalt + params["password"]) + "\',\'" 
                        + params["profile_picture"] + "\',36.1699, 115.1398,\'" + hashsalt + "\',\'" +  params["email"] + "\')"); 
                 }
@@ -227,6 +245,7 @@ int main()
             }
             
 			// output account table after adding new user
+			/*
             app().getDbClient()->execSqlAsync("SELECT * FROM account", [](const orm::Result& r)
             {
                 for(const auto& rows : r)
@@ -243,9 +262,10 @@ int main()
             {
                 LOG_ERROR << e.base().what() << '\n';
             });
+			*/
             
 			// redirect to login page after adding new user
-            resp = HttpResponse::newRedirectionResponse("/login");
+            resp = HttpResponse::newRedirectionResponse("/login.html");
             callback(resp);
         },
         {

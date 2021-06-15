@@ -20,5 +20,5 @@ function addContacts(json)
 	json = JSON.parse(json);
 
 	// add the new user
-	addContact(json.imageURL, json.contactName, json.lastMessage)
+	addContact(json.imageURL, json.contactName, json.lastMessage, json.userId);
 }
