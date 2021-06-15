@@ -105,3 +105,7 @@ function userMessage() {
       errorMessage(validResult);
    }
 }
+
+function clearMessages() {
+   document.getElementById("chat").innerHTML = "";
+}

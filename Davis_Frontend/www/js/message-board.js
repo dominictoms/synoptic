@@ -36,6 +36,7 @@ function function1(contactID) {
       footer.style.display = "block";
       chat.style.height = "calc(100% - 118px)";
       blankPanel.remove();
+      clearMessages();
    }
 }
 
