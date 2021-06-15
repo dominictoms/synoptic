@@ -58,31 +58,33 @@ body {
    width: 450px;
    height: 550px;
    padding: 12px 20px;
-   top: 50%;
-   left: 50%;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    position: absolute;
    margin: auto;
    display: block;
    box-sizing: border-box;
-   transform: translate(-50%, -50%);
    text-align: left;
    border-radius: 20px;
    z-index: 10;
    border-radius: 76% 72% 30% 70% / 60% 40% 60% 40%;
-   animation: blobMovement 3s ease-in-out alternate-reverse infinite;
+   animation: blobMovement 10s ease-in-out alternate-reverse infinite;
 }
 .overlay-signup {
    background-color: #2f2f40;
    width: 450px;
    height: 900px;
    padding: 12px 20px;
-   top: 50%;
-   left: 50%;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    position: absolute;
    margin: auto;
    display: block;
    box-sizing: border-box;
-   transform: translate(-50%, -50%);
    text-align: left;
    border-radius: 20px;
    z-index: 9;
@@ -93,22 +95,18 @@ body {
    0% {
       border-radius: 50% 50% 50% 50% / 25% 25% 75% 75%;
    }
-   50% {
-      border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-   }
    100% {
       border-radius: 50% 50% 50% 50% / 75% 75% 25% 25%;
    }
 }
 @keyframes blobMovement {
    0% {
-      border-radius: 87% 13% 90% 10% / 87% 8% 92% 13%;
-   }
-   50% {
-      border-radius: 47% 53% 51% 49% / 87% 87% 13% 13%;
+      border-radius: 10% 90% 10% 90% / 10% 90% 10% 90%;
+      transform: rotate(0deg);
    }
    100% {
-      border-radius: 9% 91% 12% 88% / 11% 87% 13% 89%;
+      transform: rotate(180deg);
+      border-radius: 90% 10% 90% 10% / 90% 10% 90% 10%;
    }
 }
 .signupbox {
