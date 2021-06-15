@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+   <head>
+      <meta charset="utf-8" />
+      <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="msapplication-tap-highlight" content="no" />
+      <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+      <meta name="color-scheme" content="light dark" />
+      <title>Davis | Chat</title>
+      <link rel="stylesheet" href="css/bootstrap.min.css" />
+      <link rel="stylesheet" href="css/contactMessages.css" />
+   </head>
+   <body>
+      <div class="container-fluid contact-panel">
+         <!--To contain contact code only-->
+         <nav class="navbar navbar-dark nav-colour static-top">
+            <div class="container-fluid">
+               <span class="navbar-brand mb-0 h1">Davis</span>
+               <span class="navbar-brand mb-0 h1">Contacts</span>
+               <div class="dropdown">
+                  <button
+                     class="btn btn-secondary transparent"
+                     type="button"
+                     id="dropdownMenuButton2"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false"
+                  >
+                     <img class="icon dropdown-icon" src="images/menu.svg" alt="Send" />
+                  </button>
+                  <ul
+                     class="dropdown-menu dropdown-menu-dark dropdown-menu-right"
+                     aria-labelledby="dropdownMenuButton2"
+                  >
+                     <li><a class="dropdown-item" href="#">Add contact</a></li>
+                     <li><a class="dropdown-item" href="#">Send message</a></li>
+                     <li><hr class="dropdown-divider" /></li>
+                     <li><a class="dropdown-item" href="login.html">Log out</a></li>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+         <div class="container-fluid contact-container" id="contact-panel">
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/men/man1.jpg" alt="" />
+                  </div>
+               </a>
+               <a class="contact">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Mike Johnson</div>
+                     <div class="contact-message">
+                        Hiya mate, just seeing how that meeting went...
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/women/woman1.jpg" alt="" />
+                  </div>
+               </a>
+               <a class="contact">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Ava Leday</div>
+                     <div class="contact-message">
+                        Did you get the package I sent the other day?
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/men/man2.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Tom McAllister</div>
+                     <div class="contact-message">Go to the discord vc, big news!!!</div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/women/woman2.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Tracey Amar</div>
+                     <div class="contact-message">
+                        Make sure you get the work done before Thursday
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/men/man3.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Bruce Oneal</div>
+                     <div class="contact-message">Go to the discord vc, big news!!!</div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/women/woman3.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Vanessa Clark</div>
+                     <div class="contact-message">
+                        Did you see that ludicrous display last night?
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/men/man4.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Jon Wells</div>
+                     <div class="contact-message">Try turning it off and on again</div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/women/woman4.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Jessica Miles</div>
+                     <div class="contact-message">
+                        I'm calling in sick tomorrow, don't want to do the work
+                     </div>
+                  </div>
+               </a>
+            </div>
+            <div class="row contact-row flex-nowrap">
+               <a href="profile.html">
+                  <div class="col-3 contact-left">
+                     <img src="images/demos/men/man4.jpg" alt="" />
+                  </div>
+               </a>
+               <a href="messages.html">
+                  <div class="col-9 contact-right">
+                     <div class="contact-name">Simon Miles</div>
+                     <div class="contact-message">I think your mam is on TV!! Channel 4!!</div>
+                  </div>
+               </a>
+            </div>
+         </div>
+      </div>
+      <div class="container-fluid message-panel" id="message-panel">
+         <nav class="navbar navbar-expand-lg navbar-dark nav-colour">
+            <div class="container-fluid">
+               <span class="navbar-brand mb-0 h1"><a id="back" href="contactMessages.html"><-</a></span>
+               <span class="navbar-brand mb-0 h1" id="header-contact-name"></span>
+               <div class="dropdown">
+                  <button
+                     class="btn btn-secondary transparent"
+                     type="button"
+                     id="dropdownMenuButton2"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false"
+                  >
+                     <img class="icon dropdown-icon" src="images/menu.svg" alt="Send" />
+                  </button>
+                  <ul
+                     class="dropdown-menu dropdown-menu-dark dropdown-menu-right"
+                     aria-labelledby="dropdownMenuButton2"
+                  >
+                     <li><a class="dropdown-item" href="#">View contact info</a></li>
+                     <li><hr class="dropdown-divider" /></li>
+                     <li><a class="dropdown-item" href="#">Send location</a></li>
+                     <li><a class="dropdown-item" href="#">Send SOS</a></li>
+                     <li><a class="dropdown-item" href="#">Send prayers</a></li>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+         
+         <div class="error-field" id="error-field"></div>
+         <div class="chat container-fluid" id="chat">
+         <div class="blank-panel" id="blank-panel">
+            <div class="image"><img src="images/background/emptyPanel.jpg" alt=""></div>
+            <div class="text">Click on a contact or add a new one to start messaging</div>
+         </div>
+            <div class="error" id="error-box">
+               <span class="close-button" id="error-close">&#10005</span>
+            </div>
+         </div>
+         <footer class="footer">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-12 no-margin">
+                     <div class="message-row">
+                        <input
+                           type="text"
+                           class="form-control"
+                           name="message-input"
+                           id="message-input"
+                           placeholder="Your message here..."
+                        />
+                        <button
+                           type="submit"
+                           class="btn btn-primary submit-button transparent"
+                           id="submit"
+                        >
+                           <img class="icon" src="images/send.svg" alt="Send" />
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </footer>
+      </div>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/message-board.js"></script>
+      <script src="js/validator.min.js"></script>
+      <script src="js/time.min.js"></script>
+      <script src="js/messages.js"></script>
+   </body>
+</html>

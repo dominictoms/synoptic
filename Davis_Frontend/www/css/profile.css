@@ -1,0 +1,205 @@
+html {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  /* make scrollbar transparent */
+}
+
+.profile-container {
+  background-color: #3a3b52;
+  color: white;
+}
+
+.nav-colour {
+  background-color: #2f2f40;
+}
+
+#back {
+  text-decoration: none;
+  color: #cdd5de;
+}
+
+.dropdown-menu {
+  background-color: #2f2f40;
+}
+
+.dropdown-menu-dark .dropdown-item:active {
+  background-color: #3a3b52 !important;
+}
+
+.dropdown-menu {
+  right: 0;
+}
+
+.dropdown-menu-right[data-bs-popper] {
+  left: inherit;
+}
+
+.dropdown-icon {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+  transform: rotate(90deg);
+  transition: transform 0.2s;
+}
+
+.transparent {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+.transparent:hover, .transparent:focus, .transparent:active, .transparent:active:hover {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.no-margin {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  height: 100% !important;
+}
+
+.profile-container {
+  height: 100vh !important;
+}
+.profile-container .profile-mobile {
+  overflow-x: hidden;
+  height: 100%;
+}
+.profile-container .profile-mobile .profile-picture {
+  height: 300px;
+  text-align: center;
+}
+.profile-container .profile-mobile .profile-picture img {
+  width: 100%;
+  height: 300px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.profile-container .profile-mobile .profile-info .center {
+  padding-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.profile-container .profile-mobile .profile-info .center .text-large {
+  font-size: 22pt;
+  font-weight: 600;
+}
+.profile-container .profile-mobile .profile-info .center .text-medium {
+  font-size: 18pt;
+  font-weight: 500;
+}
+.profile-container .profile-mobile .profile-info .center .text-small {
+  font-size: 14pt;
+  font-weight: 400;
+}
+.profile-container .profile-mobile .profile-info .center .text-small a {
+  text-decoration: none;
+}
+.profile-container .profile-mobile .profile-info .center .map {
+  padding: 10px;
+  max-height: 200px;
+  width: 100%;
+}
+.profile-container .profile-desktop {
+  overflow: hidden;
+  display: none;
+  height: 100%;
+}
+.profile-container .profile-desktop .row {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.profile-container .profile-desktop .row .profile-picture {
+  position: relative;
+  margin-top: 80px;
+  height: 400px;
+  width: 100vw;
+}
+.profile-container .profile-desktop .row .profile-picture img {
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  height: auto;
+  max-height: 300px;
+  max-width: 300px;
+  border-radius: 66% 34% 26% 74%/73% 71% 29% 27%;
+  -webkit-animation: blobMovement 15s ease-in-out alternate infinite;
+  animation: blobMovement 15s ease-in-out alternate infinite;
+  z-index: 11;
+}
+.profile-container .profile-desktop .row .profile-picture .overlay {
+  position: absolute;
+  width: 90%;
+  height: auto;
+  border-radius: 66% 34% 26% 74%/73% 71% 29% 27%;
+  animation: blobMovement 10s ease-in-out alternate-reverse infinite;
+  -webkit-filter: brightness(0.8)blur(2px);
+  filter: brightness(0.8)blur(2px);
+  z-index: 10;
+}
+.profile-container .profile-desktop .row .profile-info {
+  float: left;
+  text-align: center;
+}
+.profile-container .profile-desktop .row .profile-info .text-large {
+  font-size: 24pt;
+  font-weight: 600;
+}
+.profile-container .profile-desktop .row .profile-info .text-medium {
+  font-size: 20pt;
+  font-weight: 500;
+}
+.profile-container .profile-desktop .row .profile-info .text-small {
+  font-size: 16pt;
+  font-weight: 400;
+}
+.profile-container .profile-desktop .row .profile-info .text-small a {
+  text-decoration: none;
+}
+.profile-container .profile-desktop .row .profile-info .map {
+  padding: 10px;
+  height: 300px;
+  width: 100%;
+}
+
+@-webkit-keyframes blobMovement {
+  0% {
+    border-radius: 66% 34% 26% 74%/73% 71% 29% 27%;
+  }
+  50% {
+    border-radius: 36% 64% 65% 35%/48% 69% 31% 52%;
+  }
+  100% {
+    border-radius: 52% 48% 43% 57%/72% 22% 78% 28%;
+  }
+}
+@keyframes blobMovement {
+  0% {
+    border-radius: 66% 34% 26% 74%/73% 71% 29% 27%;
+  }
+  50% {
+    border-radius: 36% 64% 65% 35%/48% 69% 31% 52%;
+  }
+  100% {
+    border-radius: 52% 48% 43% 57%/72% 22% 78% 28%;
+  }
+}
+@media (min-width: 450px) {
+  .profile-mobile {
+    display: none;
+  }
+
+  .profile-desktop {
+    display: block !important;
+  }
+}

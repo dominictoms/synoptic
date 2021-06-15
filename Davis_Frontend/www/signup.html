@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+      <title>Signup</title>
+      <link rel="stylesheet" href="css/login.css" />
+      <script src="login.js" defer></script>
+   </head>
+      
+      <form class="" action="/signup" method="post">
+      <div class="signupbox">
+         <h1>Create an Account</h1>
+
+         
+            <p>Email</p>
+            <input type="email" placeholder="Enter Email " name="email" required />
+
+            <p>Forename</p>
+            <input type="text" placeholder="Enter Forename" name="forename" required />
+            <p>Surname</p>
+            <input type="text" placeholder="Enter Surname" name="surname" required />
+
+            <p>Username</p>
+            <input
+               id="usernameCheck"
+               type="text"
+               placeholder="Enter Username"
+               name="userName"
+               required
+            />
+
+            <p id="alertMessage">Password</p>
+            <input
+               id="passCheck"
+               type="password"
+               placeholder="Enter Password"
+               name="password"
+               maxlength="20"
+               minlength="8"
+               required
+            />
+
+            <p>Profile Picture</p>
+            <input
+               type="file"
+               name="profile_picture"
+               placeholder="Photo"
+               accept="image/png,image/jpeg,image/gif"
+            />
+
+            <p></p>
+
+            <a href="login.html">Already have an account?</a>
+            <button type="submit" name="Signup" onclick="checkPassword()">Signup</button>
+            <div class="error" id="error"><h2>Incorrect information, please try yet</h2></div>
+         
+      </div>
+   </form>
+      <div class="overlay-signup"></div>
+   </body>
+   <script src="js/error.js" defer></script>
+</html>

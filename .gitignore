@@ -12,5 +12,4 @@ Davis_Backend/build
 Davis_Frontend/node_modules/
 Davis_Frontend/plugins/
 Davis_Frontend/platforms/
-Davis_Frontend/
 Davis_Frontend/package-lock.json
