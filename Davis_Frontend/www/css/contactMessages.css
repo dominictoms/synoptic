@@ -337,9 +337,12 @@
 
 .message-row {
   background: #2f2f40;
-  display: flex;
   padding: 12px 12px 12px 12px;
   align-items: baseline;
+}
+
+#message-input {
+  width: 85% !important;
 }
 
 .submit-button {

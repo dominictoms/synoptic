@@ -381,11 +381,13 @@ $userChat: #cdd5de;
 
 .message-row {
    background: $menuBackground;
-   display: flex;
    padding: 12px 12px 12px 12px;
    align-items: baseline;
 }
 
+#message-input {
+   width: 85% !important;
+}
 .submit-button {
    background-color: transparent;
    height: 38px;
