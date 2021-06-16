@@ -85,7 +85,6 @@ bool AwsDoc::S3::PutObject(const Aws::String& bucketName,
 
 int main()
 {
-    profile* userProfile;
 
 	// log into pg database
     initDb("postgresql", "davisdbinstance.cbzc59oyz4iz.us-east-2.rds.amazonaws.com", 5432, "davisdb", "davis", "synoptic123");
@@ -95,11 +94,10 @@ int main()
     app().enableDynamicViewsLoading({"../../Davis_Frontend/www"});
     app().setHomePage("signup.html");
     
-    app().registerHandler("/profile", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
+    app().registerHandler("/profile", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
     {
         HttpResponsePtr resp;
 
-        std::cout << req->getCookie("accountId") << '\n';
         if(req->cookies().size() <= 1)
         {
             resp = HttpResponse::newRedirectionResponse("login.html");
@@ -108,8 +106,7 @@ int main()
 
        try
 	    {
-		
-		    auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountId, hashsalt from account where userName = \'" 
+		    auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountid from account where username = \'" 
 	 			    + req->getCookie("username") + "\'");
 
 		    std::string hashedAccountId =query[0][0].as<std::string>();
@@ -135,11 +132,10 @@ int main()
         {Get}
     );
 
-    app().registerHandler("/contactMessages", [userProfile](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
+    app().registerHandler("/contactMessages", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
     {
         HttpResponsePtr resp;
-                std::cout << req->getCookie("username") << '\n';
-				
+    			
         if(req->cookies().size() <= 1)    
         {
             resp = HttpResponse::newRedirectionResponse("login.html");
@@ -147,30 +143,22 @@ int main()
         }     
         try
 	    {
-		
-		auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountId, hashsalt from account where username=\'" 
+
+		auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountId from account where username=\'" 
 	 			+ req->getCookie("username") + "\'");
 
-  
-      
-        for(const auto& res : query)
-        {
-            for(const auto& fields : res)
-            {
-                std::cout << fields.as<std::string>() << '\t';
-            }
-            std::cout << "\n";
-        }
-		std::string hashedAccountId =query[0][0].as<std::string>();
-		if(req->getCookie("accountId") != hashedAccountId)
+        
+        /* checks if the account id in the cookie is valid */
+     	std::string dbAccountId =query[0][0].as<std::string>();
+		if(req->getCookie("accountId") != dbAccountId)
 		{
 			resp = HttpResponse::newRedirectionResponse("login.html");
             callback(resp);
 		}
         else
         {
-                 resp = HttpResponse::newRedirectionResponse("contactMessages.html");  
-                 callback(resp);
+            resp = HttpResponse::newRedirectionResponse("contactMessages.html");  
+            callback(resp);
         }
 	} catch(const orm::DrogonDbException& e)
 	{
@@ -183,7 +171,7 @@ int main()
     );
    
     app().registerHandler("/login",
-        [userProfile](const HttpRequestPtr &req,
+        [](const HttpRequestPtr &req,
            std::function<void(const HttpResponsePtr &)> &&callback) mutable {
             auto resp = HttpResponse::newHttpResponse();
             std::string user = req->getParameter("username");
@@ -205,37 +193,36 @@ int main()
 				// the user exists
 				else
 				{
+
 					orm::Result query = app().getDbClient()->execSqlSync("SELECT * from account WHERE username =\'" + user + "\'");
-                          
         
+                    profile* userProfile;
 					for(const auto& rows : query)
 					{           
-						
 						userProfile = new profile(rows);
 					}
 
+                    /* check the password entered is correct */
 					if(userProfile->getPassword() == utils::getMd5(userProfile->getHashsalt() + passwd))
 					{
-						Json::Value json;
-						json["username"] = userProfile->getUsername();
-						json["surname"] = userProfile->getSurname();
-						json["forename"] = userProfile->getForename();
-						json["email"] = userProfile->getEmail();
-						json["longitude"] = userProfile->getLongitude();
-						json["latitude"] = userProfile->getLatitude();
-						resp = HttpResponse::newRedirectionResponse("contactMessages.html");
-                        Cookie idCookie("accountId", std::to_string(userProfile->getAccountId()));
-                        idCookie.setHttpOnly(false);
-                        resp->addCookie(idCookie);
-                        Cookie userCookie("username",userProfile->getUsername());
-                        userCookie.setHttpOnly(false);
-                        resp->addCookie(userCookie);
+                        resp = HttpResponse::newRedirectionResponse("contactMessages.html");
+
+                        /* generate a bunch of cookies for user */ 
+                        std::vector<Cookie> cookies{{"accountId", std::to_string(userProfile->getAccountId())}, 
+                        {"username",userProfile->getUsername()}, {"forename",userProfile->getForename()}, 
+                                {"surname",userProfile->getSurname()},{"email",userProfile->getEmail()},
+                                    {"longitude",std::to_string(userProfile->getLongitude())}, {"latitude",std::to_string(userProfile->getLatitude())}, 
+                                    {"profilePic", userProfile->getProfilePic()}};
+                        
+                        for(auto& c : cookies)
+                        {
+                            c.setHttpOnly(false);
+                            resp->addCookie(c);
+                        }
                         callback(resp);
 					}
-
 					else
 					{
-					 
 						resp = HttpResponse::newRedirectionResponse("login.html?state=badpassword");
              			callback(resp);
 					}
@@ -288,7 +275,7 @@ int main()
             }
             
 			// output account table after adding new user
-			
+			/*
             app().getDbClient()->execSqlAsync("SELECT * FROM account", [](const orm::Result& r)
             {
                 for(const auto& rows : r)
@@ -305,7 +292,7 @@ int main()
             {
                 LOG_ERROR << e.base().what() << '\n';
             });
-			
+			*/
             
 			// redirect to login page after adding new user
             resp = HttpResponse::newRedirectionResponse("/login.html");
@@ -315,7 +302,8 @@ int main()
             Post
         }
     );
- 
+
+    /* add http listener */ 
     LOG_INFO << "Server running on 127.0.0.1:8848";
     app().enableSession(24h).addListener("127.0.0.1", 8848).run();
 }
