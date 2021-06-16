@@ -45,6 +45,14 @@ function contactMessage(messageText) {
   document.getElementById("chat").innerHTML += "<div class=\"row no-gutters\">\n    <div class=\"col\">\n        <div class=\"message\">\n            <div class=\"message-left-first\">" + messageText + "</div>\n        </div>\n    </div>\n    </div>"; //Scroll to the most recent message
 
   document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+}
+
+function userMessageVar(input) {
+  document.getElementById("chat").innerHTML += "\n      <div class=\"row no-gutters\">\n          <div class=\"col\">\n              <div class=\"message\">\n                  <div class=\"message-right-first float-end\">" + input + "</div>\n                  <div class=\"message-time-right float-end\">" + getTime() + "</div>\n              </div>\n          </div>\n      </div>\n      "; //Scroll to the most recent message
+
+  document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight; //Clear the input box as the message successfully sent
+
+  document.getElementById("message-input").value = "";
 } //Message from user - right side
 
 

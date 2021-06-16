@@ -69,9 +69,34 @@ function contactMessage(messageText) {
    document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
 }
 
+function userMessageVar(input) {
+   document.getElementById("chat").innerHTML +=
+      `
+      <div class="row no-gutters">
+          <div class="col">
+              <div class="message">
+                  <div class="message-right-first float-end">` +
+      input +
+      `</div>
+                  <div class="message-time-right float-end">` +
+      getTime() +
+      `</div>
+              </div>
+          </div>
+      </div>
+      `;
+
+   //Scroll to the most recent message
+   document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+
+   //Clear the input box as the message successfully sent
+   document.getElementById("message-input").value = "";
+}
+
 //Message from user - right side
 function userMessage() {
    //Get form value
+
    var messageText = document.getElementById("message-input").value;
 
    var validResult = validate();
