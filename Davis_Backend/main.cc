@@ -103,6 +103,18 @@ int main()
         {Get}
     );
 
+     app().registerHandler("/", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
+    {
+            auto resp = HttpResponse::newHttpResponse();
+        app().getDbClient()->execSqlSync("insert into message(send, recipient, body) VALUES(28, 29,'\'" + req->getParameter("message-input") + "\')");
+
+
+
+        callback(resp);
+    },
+        {Post}
+    );
+
     app().registerHandler("/addContact", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr&)>&& callback)
     {
         std::string newContactUserName = req->getParameter("username");
@@ -124,7 +136,9 @@ int main()
                 callback(resp);
                 return;
             }
-            auto friendship= app().getDbClient()->execSqlSync("select * from relationship where (account1=" + req->getCookie("accountId") + " and account2=" +accountId + ")");
+            auto friendship= app().getDbClient()->execSqlSync("select * from relationship where (account1=" + req->getCookie("accountId") 
+                + " and account2=" +accountId + ") or (account2 =" + req->getCookie("accountId") 
+                        + " and account1=" + accountId + ")");
             if(friendship.size() >= 1)
             {
                 resp = HttpResponse::newRedirectionResponse("/contactMessages.html?state=contactAlreadyExists");
@@ -320,7 +334,7 @@ int main()
     );
 
     /* add http listener */ 
-    LOG_INFO << "Server running on 127.0.0.1:8848";
-    app().enableSession(24h).addListener("127.0.0.1", 8848).run();
+    LOG_INFO << "Server running on 127.0.0.1:8869";
+    app().enableSession(24h).addListener("127.0.0.1", 8869).run();
 }
 
