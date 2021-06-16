@@ -41,8 +41,8 @@
       <div class="add-user-panel" id="add-user-panel">
          <div class="title">Add Contact</div>
          <div class="close" id="add-user-close">&#10005</div>
-   <form action="">
-      <input type="text" contactname="" id="" placeholder="Username">
+   <form method="POST" action="/addContact">
+      <input type="text" contactname="" name="username" placeholder="Username">
       <br>
       <br>
       <br>
@@ -256,9 +256,10 @@
                <div class="row">
                   <div class="col-12 no-margin">
                      <div class="message-row">
+                        <form action = "/sendMessage", method="POST">
                         <input
                            type="text"
-                           class="form-control"
+                           
                            name="message-input"
                            id="message-input"
                            placeholder="Your message here..."
@@ -270,6 +271,7 @@
                         >
                            <img class="icon" src="images/send.svg" alt="Send" />
                         </button>
+                        </form>
                      </div>
                   </div>
                </div>

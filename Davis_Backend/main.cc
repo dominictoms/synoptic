@@ -96,42 +96,55 @@ int main()
     
     app().registerHandler("/profile", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
     {
-        HttpResponsePtr resp;
-
-        if(req->cookies().size() <= 1)
-        {
-            resp = HttpResponse::newRedirectionResponse("login.html");
-            callback(resp);
-        }
-
-       try
-	    {
-		    auto query = app().getDbClient()->execSqlSync("SELECT DISTINCT accountid from account where username = \'" 
-	 			    + req->getCookie("username") + "\'");
-
-		    std::string hashedAccountId =query[0][0].as<std::string>();
-
-    	    if(req->getCookie("accountId") != hashedAccountId)
-		    {
-                std::cout << "account not found!\n";
-			    resp = HttpResponse::newRedirectionResponse("login.html");
-                callback(resp);
-     	    }
-            else
-            {
-                     resp = HttpResponse::newRedirectionResponse("profile.html");
-                     callback(resp);
-            }
-	} catch(const orm::DrogonDbException& e)
-	{
-		LOG_ERROR << e.base().what() << '\n';
-	}
+        
+        auto resp = HttpResponse::newRedirectionResponse("profile.html");
         callback(resp);
-
     },
         {Get}
     );
 
+    app().registerHandler("/addContact", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr&)>&& callback)
+    {
+        std::string newContactUserName = req->getParameter("username");
+
+        HttpResponsePtr resp;
+
+        auto query = app().getDbClient()->execSqlSync("SELECT accountId FROM account WHERE username=\'" + newContactUserName + "\'");
+        if(query.size() < 1)
+        {
+            std::cout << "User does not exist!\n";
+        }
+        else
+        {
+            std::string accountId = query[0][0].as<std::string>();
+            /* checks if current user is trying to add themselves to the contact list */
+            if(accountId == req->getCookie("accountId"))
+            {
+                resp = HttpResponse::newRedirectionResponse("/contactMessages.html?state=contactInvalid");
+                callback(resp);
+                return;
+            }
+            auto friendship= app().getDbClient()->execSqlSync("select * from relationship where (account1=" + req->getCookie("accountId") + " and account2=" +accountId + ")");
+            if(friendship.size() >= 1)
+            {
+                resp = HttpResponse::newRedirectionResponse("/contactMessages.html?state=contactAlreadyExists");
+                callback(resp);
+                return;
+            }
+            else
+            {
+                auto insertFriend = app().getDbClient()->execSqlSync("insert into relationship(account1, account2) VALUES(\'" + req->getCookie("accountId") + "\',\'" + accountId + "\')");
+            }
+        }
+
+        resp = HttpResponse::newRedirectionResponse("/contactMessages");
+        callback(resp);
+        
+    },
+    {Post}
+    );
+
+    
     app().registerHandler("/contactMessages", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> && callback)
     {
         HttpResponsePtr resp;
@@ -148,7 +161,7 @@ int main()
 	 			+ req->getCookie("username") + "\'");
 
         
-        /* checks if the account id in the cookie is valid */
+        // checks if the account id in the cookie is valid 
      	std::string dbAccountId =query[0][0].as<std::string>();
 		if(req->getCookie("accountId") != dbAccountId)
 		{
@@ -169,6 +182,7 @@ int main()
     },
     {Get}
     );
+    
    
     app().registerHandler("/login",
         [](const HttpRequestPtr &req,
@@ -205,6 +219,7 @@ int main()
                     /* check the password entered is correct */
 					if(userProfile->getPassword() == utils::getMd5(userProfile->getHashsalt() + passwd))
 					{
+                        std::cout << "hello\n";
                         resp = HttpResponse::newRedirectionResponse("contactMessages.html");
 
                         /* generate a bunch of cookies for user */ 
@@ -213,6 +228,7 @@ int main()
                                 {"surname",userProfile->getSurname()},{"email",userProfile->getEmail()},
                                     {"longitude",std::to_string(userProfile->getLongitude())}, {"latitude",std::to_string(userProfile->getLatitude())}, 
                                     {"profilePic", userProfile->getProfilePic()}};
+
                         
                         for(auto& c : cookies)
                         {

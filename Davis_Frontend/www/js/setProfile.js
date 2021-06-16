@@ -1,3 +1,4 @@
+/*
 const getCookie = (name) => {
         return document.cookie.split('; ').reduce((r, v) => {
         const parts = v.split('=')
@@ -12,11 +13,10 @@ profilePic = getCookie("profilePic");
 longitude = getCookie("longitude");
 latitude = getCookie("latitude");
 email = getCookie("email");
+*/
 
 var setProfile = function()
 {
-    document.getElementById("username").innerText = "Username: " + userName;
-    console.log(document.getElementById("username").innerText);
 }
 
 onload = setProfile;

@@ -17,8 +17,15 @@ function httpGet(url)
 function addContacts(json)
 {
 	// convert from json to object
-	json = JSON.parse(json);
+	if(!json)
+		return;
+	json = JSON.parse("{\"arr\":"+json+"}");
+	console.log(json);
+	for(var i = 0; i < json.arr.length; i++)
+	{
+
+		addContact("https://daviss3bucket.s3.eu-west-2.amazonaws.com/davis.jpg", json.arr[i].contactName, json.arr[i].lastMessage, json.arr[i].userId);
+	}
 
 	// add the new user
-	addContact(json.imageURL, json.contactName, json.lastMessage, json.userId);
 }
