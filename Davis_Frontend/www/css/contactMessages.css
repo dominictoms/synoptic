@@ -113,6 +113,9 @@
   border-radius: 50%;
   border: 1px solid gray;
 }
+.contact-panel .contact-container .contact-row a .contact-right {
+  width: 100%;
+}
 .contact-panel .contact-container .contact-row a .contact-right .contact-name {
   padding: 0;
   margin: 10px 0px 0px 0px;
