@@ -24,7 +24,7 @@ function addContacts(json)
 	for(var i = 0; i < json.arr.length; i++)
 	{
 
-		addContact("https://daviss3bucket.s3.eu-west-2.amazonaws.com/davis.jpg", json.arr[i].contactName, json.arr[i].lastMessage, json.arr[i].userId);
+		addContact(json.arr[i].imageURL, json.arr[i].contactName, json.arr[i].lastMessage, json.arr[i].userId);
 	}
 
 	// add the new user

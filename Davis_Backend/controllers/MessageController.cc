@@ -2,9 +2,10 @@
 #include <cstdio>
 void MessageController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback)
 {
-    std::cout << req->getParameter("text") << '\n';
-    app().getDbClient()->execSqlSync("insert into message(sender, recipient, body) VALUES(28, 29,\'" + req->getParameter("text") + "\')");
+
+    app().getDbClient()->execSqlSync("insert into message(sender, recipient, body) VALUES(" + req->getCookie("accountId") + "," +  req->getCookie("sendID") + ",\'" + req->getParameter("text") + "\')");
     auto resp = HttpResponse::newHttpResponse();
+   
     callback(resp);
 
 }

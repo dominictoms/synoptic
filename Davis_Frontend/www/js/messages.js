@@ -11,6 +11,8 @@ if (
    const userParamID = userParam.get("userId");
    const contactName = document.getElementById("header-contact-name");
    contactName.innerText = userParamID;
+
+
 }
 
 //Adding event listener to the submit button
@@ -81,6 +83,7 @@ function contactMessage(messageText) {
 
 function httpPost()
 {
+
    var formData = new FormData(document.getElementById("send-message-form"));
 	var http = new XMLHttpRequest();
 	http.open("POST", "/sendMessages", true);
@@ -88,18 +91,27 @@ function httpPost()
 
 
 
+
+   const userState = "";
    http.onreadystatechange = function() { // Call a function when the state changes.
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
           userMessageVar(formData.get("message-input"));
+
+         }
       }
-  }
-   
-   console.log(formData.get("message-input"));
+      
+ 
+ 
+   console.log(userState);
    http.send("text="+formData.get("message-input"));
+
+
 
    return formData.get("message-input");
    
 }
+
+
 
 /* insert message bubble */
 function userMessageVar(input) {

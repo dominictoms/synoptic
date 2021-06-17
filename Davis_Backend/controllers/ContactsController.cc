@@ -10,6 +10,7 @@ void ContactsController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::
     {
         resp = HttpResponse::newRedirectionResponse("contactMessages.html");
         callback(resp);
+        return;
     }
     for(int i=0; i < query.size(); i++)
     {
@@ -26,23 +27,24 @@ void ContactsController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::
 		    userID = query[i][0].as<int>();
 	    }
 
-             
-            auto user = app().getDbClient()->execSqlSync("select * from account where accountId=" + std::to_string(userID));
+        std::string userIdStr = std::to_string(userID);
         
-        mJson[i]["imageURL"] = user[0][6].as<std::string>();
-	    mJson[i]["contactName"] = user[0][2].as<std::string>();
-	    mJson[i]["lastMessage"] = "I like elephants and God likes elephants.";
-	    mJson[i]["userId"] = 22;
 
-     
+        auto user = app().getDbClient()->execSqlSync("select profilepic, forename, surname, body" 
+        " from account, message where accountId=" + userIdStr + " and (sender=" + userIdStr + " or recipient=" + userIdStr + 
+        ") and (sender=" + req->getCookie("accountId") + " or recipient=" + req->getCookie("accountId") + ") order by deliverytime desc limit 1;");
+
+        
+        mJson[i]["imageURL"] = user[0][0].as<std::string>();
+	    mJson[i]["contactName"] = user[0][1].as<std::string>() + " " + user[0][2].as<std::string>();
+	    mJson[i]["lastMessage"] =user[0][3].as<std::string>();
+	    mJson[i]["userId"] = userID;
     }
 
 
-    
     // send the json off
 	resp = HttpResponse::newHttpJsonResponse(mJson);
 
-    resp->setStatusCode(k200OK);
     callback(resp);
 
 

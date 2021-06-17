@@ -93,10 +93,22 @@ int main()
     app().setDocumentRoot("../../Davis_Frontend/www");
     app().enableDynamicViewsLoading({"../../Davis_Frontend/www"});
     app().setHomePage("signup.html");
+
+    app().registerHandler("/signout", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
+    {
+        auto resp = HttpResponse::newRedirectionResponse("login.html?state=signedout");
+        for(auto& cookies : resp->getCookies())
+        {
+            resp->removeCookie(cookies.first);
+        }
+
+        callback(resp);
+    },
+    {Get}
+    );
     
     app().registerHandler("/profile", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
     {
-        
     },
         {Get}
     );
@@ -104,9 +116,15 @@ int main()
 
     app().registerHandler("/addContact", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr&)>&& callback)
     {
+        HttpResponsePtr resp;
+         if(req->cookies().size() <= 1)    
+        {
+            resp = HttpResponse::newRedirectionResponse("login.html");
+            callback(resp);  
+            return;
+        }     
         std::string newContactUserName = req->getParameter("username");
 
-        HttpResponsePtr resp;
 
         auto query = app().getDbClient()->execSqlSync("SELECT accountId FROM account WHERE username=\'" + newContactUserName + "\'");
         if(query.size() < 1)
@@ -134,7 +152,12 @@ int main()
             }
             else
             {
-                auto insertFriend = app().getDbClient()->execSqlSync("insert into relationship(account1, account2) VALUES(\'" + req->getCookie("accountId") + "\',\'" + accountId + "\')");
+                /* send temporary welcome message! */
+                auto tempInsert = app().getDbClient()->execSqlSync("insert into message(sender, recipient, body) VALUES(" 
+                + req->getCookie("accountId") + ", " + accountId + ",\'hi nice to meet you!\')");
+
+                auto insertFriend = app().getDbClient()->execSqlSync("insert into relationship(account1, account2) VALUES(\'" 
+                + req->getCookie("accountId") + "\',\'" + accountId + "\')");
             }
         }
 
@@ -153,7 +176,8 @@ int main()
         if(req->cookies().size() <= 1)    
         {
             resp = HttpResponse::newRedirectionResponse("login.html");
-            callback(resp);  
+            callback(resp); 
+            return; 
         }     
         try
 	    {
@@ -202,6 +226,7 @@ int main()
                 {
 					// set signup page to failed state if account already exits
                     resp = HttpResponse::newRedirectionResponse("login.html?state=badusername");
+                    
                     callback(resp);
                 }
 
@@ -273,6 +298,7 @@ int main()
 					// set signup page to failed state if account already exits
                     resp = HttpResponse::newRedirectionResponse("signup.html?state=existingaccount");
                     callback(resp);
+                    return;
                 }
 
                 else
