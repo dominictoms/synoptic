@@ -33,7 +33,6 @@ function function1(contactID) {
 
   getUserMessages(id);
 
-  getJson("/displayMessages");
   
  
   
@@ -51,6 +50,7 @@ function function1(contactID) {
     blankPanel.remove();
     clearMessages();
   }
+  addMessageBubble(getJson("displayMessages"));
 }
 
 /* to get the json response */
@@ -66,16 +66,12 @@ function getJson(url)
 function addMessageBubble(json)
 {
 	// convert from json to object
-	if(!json)
-		return;
+	if(!json) return;
 	json = JSON.parse("{\"arr\":"+json+"}");
 	for(var i = 0; i < json.arr.length; i++)
 	{
-     console.log("yes!\n");
-      if(json.arr[i].sender == cookieUserId)
-		   userMessageVar(json.arr[i].body);
-      else
-         contactMessage(json.arr[i].body);
+		console.log(json.arr[i].body);
+	   userMessageVar(json.arr[i].body);
 	}
 
 	// add the new user

@@ -1,12 +1,15 @@
 #include "MessageBubbleController.h"
+#include <iostream>
+
 void MessageBubbleController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback)
 {
     std::cout << "display messages!\n";
-    std::string cookieID = req->getParameter("cookieID");
-    std::string userId = req->getParameter("userId");
+    std::string cookieID = req->getCookie("cookieID");
+    std::string userId = req->getCookie("userId");
 
-    auto messages = app().getDbClient()->execSqlSync("select * from message where (sender="+cookieID+ " and recipient=" + userId + ") or (sender="+userId 
-    + " and recipient="+cookieID + ") order by deliverytime");
+    std::cout << cookieID << userId << "endl\n";
+
+    auto messages = app().getDbClient()->execSqlSync("select * from message where (sender=28 and recipient=29) or (sender=29 and recipient=28) order by deliverytime");
 
     Json::Value json;
     for(int i=0; i < messages.size(); i++)
@@ -18,13 +21,5 @@ void MessageBubbleController::asyncHandleHttpRequest(const HttpRequestPtr& req, 
         
     }
     auto resp = HttpResponse::newHttpJsonResponse(json);
-    resp->setContentTypeCode(drogon::CT_APPLICATION_JSON);
-
-    Cookie sendId;
-    sendId.setKey("sendID");
-    sendId.setValue(userId);
-    sendId.setHttpOnly(false);
-    resp->addCookie(sendId);
-    resp->setStatusCode(k200OK);
     callback(resp);
 }
