@@ -308,7 +308,7 @@ int main()
                     "insert into account (username, forename, surname, password, profilepic, latitude, longitude, hashsalt, email) "
                        "VALUES(\'" + params["username"] + "\'" + ",\'" + params["forename"] + "\',\'" + params["surname"] 
                        + "\',\'" + utils::getMd5(hashsalt + params["password"]) + "\',\'" 
-                       + params["profile_picture"] + "\',36.1699, 115.1398,\'" + hashsalt + "\',\'" +  params["email"] + "\')"); 
+                       + "https://daviss3bucket.s3.eu-west-2.amazonaws.com/default-avatar.png" + "\',36.1699, 115.1398,\'" + hashsalt + "\',\'" +  params["email"] + "\')"); 
                 }
             }
 			

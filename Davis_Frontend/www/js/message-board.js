@@ -30,6 +30,7 @@ function function1(contactID) {
   var id = replace.replace('<div style="visibility: hidden;">', "");
   id = id.replace(" </div>", "");
   id = id.trim();
+	 document.cookie = "sendId="+id; 
 
   getUserMessages(id);
 
@@ -62,6 +63,21 @@ function getJson(url)
    return http.responseText;
 }
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 function addMessageBubble(json)
 {
@@ -70,8 +86,11 @@ function addMessageBubble(json)
 	json = JSON.parse("{\"arr\":"+json+"}");
 	for(var i = 0; i < json.arr.length; i++)
 	{
-		console.log(json.arr[i].body);
+		if (json.arr[i].sender == getCookie("accountId"))
 	   userMessageVar(json.arr[i].body);
+
+		else
+		contactMessage(json.arr[i].body);
 	}
 
 	// add the new user

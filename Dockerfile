@@ -49,4 +49,4 @@ mkdir build; cd build;\
 cmake ..; make; ls -A;
 
 # run the backend
-CMD ["./Davis_Backend"]
+CMD ["./Davis_Backend/build/Davis_Backend"]

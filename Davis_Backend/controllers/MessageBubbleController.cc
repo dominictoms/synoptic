@@ -4,12 +4,12 @@
 void MessageBubbleController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::function<void (const HttpResponsePtr &)> &&callback)
 {
     std::cout << "display messages!\n";
-    std::string cookieID = req->getCookie("cookieID");
-    std::string userId = req->getCookie("userId");
+    std::string cookieID = req->getCookie("sendId");
+    std::string userId = req->getCookie("accountId");
 
     std::cout << cookieID << userId << "endl\n";
 
-    auto messages = app().getDbClient()->execSqlSync("select * from message where (sender=28 and recipient=29) or (sender=29 and recipient=28) order by deliverytime");
+    auto messages = app().getDbClient()->execSqlSync("select * from message where (sender="+cookieID+" and recipient="+userId+") or (sender="+userId+" and recipient="+cookieID+") order by deliverytime");
 
     Json::Value json;
     for(int i=0; i < messages.size(); i++)

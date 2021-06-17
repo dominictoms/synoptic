@@ -45,6 +45,8 @@ void ContactsController::asyncHandleHttpRequest(const HttpRequestPtr& req, std::
     // send the json off
 	resp = HttpResponse::newHttpJsonResponse(mJson);
 
+	std::cout<<mJson<<"\n";
+
     callback(resp);
 
 
