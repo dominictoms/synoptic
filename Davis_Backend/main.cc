@@ -97,23 +97,10 @@ int main()
     app().registerHandler("/profile", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
     {
         
-        auto resp = HttpResponse::newRedirectionResponse("profile.html");
-        callback(resp);
     },
         {Get}
     );
 
-     app().registerHandler("/", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr &)> &&callback)
-    {
-            auto resp = HttpResponse::newHttpResponse();
-        app().getDbClient()->execSqlSync("insert into message(send, recipient, body) VALUES(28, 29,'\'" + req->getParameter("message-input") + "\')");
-
-
-
-        callback(resp);
-    },
-        {Post}
-    );
 
     app().registerHandler("/addContact", [](const HttpRequestPtr& req, std::function<void(const HttpResponsePtr&)>&& callback)
     {

@@ -40,6 +40,29 @@ function function1(contactID) {
    }
 }
 
+function getUserMessages(userId)
+{
+   const getCookie = (name) => {
+      return document.cookie.split('; ').reduce((r, v) => {
+      const parts = v.split('=')
+      return parts[0] === name ? decodeURIComponent(parts[1]) : r
+      }, '')
+   }
+   var cookieUserId = getCookie("accountId");
+
+   var httpReq = new XMLHttpRequest();
+   httpReq.open("POST", "/displayMessages");
+   http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+
+   http.onreadystatechange = function() { // Call a function when the state changes.
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      }
+  }
+
+  http.send("cookieID="+cookieUserId + "&" + "userId="+userId);
+
+}
+
 function addContact(imageURL, contactName, lastMessage) {
    document.getElementById("contact-panel").innerHTML +=
       '\n   <div class="row contact-row flex-nowrap">\n      <a href="profile.html">\n         <div class="col-3 contact-left">\n            <img src="' +
@@ -61,4 +84,6 @@ function addContact(imageURL, contactName, lastMessage) {
    for (var i = 0; i < contact.length; i++) {
       _loop(i);
    }
+
+   
 }

@@ -14,13 +14,20 @@ if (
 }
 
 //Adding event listener to the submit button
+/*
 const submitButton = document.getElementById("submit");
 submitButton.addEventListener("click", userMessage);
-
+*/
 //Send press on enter press
-document.addEventListener("keyup", function (event) {
-   if (event.key == "Enter") {
-      userMessage();
+var isKeyDown = false;
+document.addEventListener("keydown", function (event) {
+   if (event.key == "Enter" && isKeyDown==true) {
+      isKeyDown = true;
+      document.addEventListener("keyup", function(event)
+      {
+         httpPost();
+         isKeyDown = false;
+      })
    }
 });
 
@@ -67,8 +74,34 @@ function contactMessage(messageText) {
 
    //Scroll to the most recent message
    document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
+
 }
 
+
+
+function httpPost()
+{
+   var formData = new FormData(document.getElementById("send-message-form"));
+	var http = new XMLHttpRequest();
+	http.open("POST", "/sendMessages", true);
+   http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
+
+
+
+   http.onreadystatechange = function() { // Call a function when the state changes.
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          userMessageVar(formData.get("message-input"));
+      }
+  }
+   
+   console.log(formData.get("message-input"));
+   http.send("text="+formData.get("message-input"));
+
+   return formData.get("message-input");
+   
+}
+
+/* insert message bubble */
 function userMessageVar(input) {
    document.getElementById("chat").innerHTML +=
       `

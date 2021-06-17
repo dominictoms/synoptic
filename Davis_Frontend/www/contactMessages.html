@@ -255,8 +255,8 @@
             <div class="container-fluid">
                <div class="row">
                   <div class="col-12 no-margin">
-                     <form method="Get">
                      <div class="message-row">
+                        <form id="send-message-form" onSubmit="httpPost(); return false;"  action="#" method="Post">
                         <input
                            type="text"
                            
@@ -264,15 +264,15 @@
                            id="message-input"
                            placeholder="Your message here..."
                         />
-                        <button
+                        <button id="button"
                            type="submit"
                            class="btn btn-primary submit-button transparent"
-                           id="submit"
+                           
                         >
                            <img class="icon" src="images/send.svg" alt="Send" />
                         </button>
-                     </div>
                   </form>
+                     </div>
                   </div>
                </div>
             </div>
